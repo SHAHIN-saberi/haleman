@@ -14,7 +14,7 @@
 
 | Task | Worker | Branch | Status | Report |
 |---|---|---|---|---|
-| T-000 M0 infra blockers (F2/F3/F4/F7) + fresh-clone gate | worker-a | `w-a/T-000-m0-boot-check` | ⬜ todo (start now) | reports/worker-a/T-000.md |
+| T-000 M0 infra blockers (F2/F3/F4/F7) + fresh-clone gate | worker-a | `w-a/T-000-m0-boot-check` | ✅ pending-review (Arena session branch `arena/01a0da44-haleman`) | reports/worker-a/T-000.md |
 | T-001 Django project + health + device model | worker-a | `w-a/T-001-django-skeleton` | ⬜ todo (after T-000 pushed) | reports/worker-a/T-001.md |
 | T-002 Next.js shell + RTL + theme + fonts + W-01 | worker-b | `w-b/T-002-next-shell` | ⬜ todo (start now) | reports/worker-b/T-002.md |
 | T-003A consent API + log + server gate | worker-a | `w-a/T-003A-consent-api` | ⏸ blocked on T-001 merge | reports/worker-a/T-003A.md |
@@ -73,6 +73,7 @@
 ## Blockers
 
 - (none)
+- [2026-09-25] WORKER-A T-000: Docker is unavailable in this worker sandbox (`docker: command not found`), so compose config, fresh-clone boot, image-size, pull, and health evidence require supervisor spot-run.
 - [2026-09-25] SENIOR B-01: senior sandbox has no Docker engine (all container registries blocked). Docker gates in
   senior reviews rest on worker transcripts + a supervisor spot-run until Q-01 is answered. → SUPERVISORS
 - [2026-09-25] SENIOR B-02: these orders live on the senior session branch `arena/01a0da37-haleman` (docs only:
