@@ -86,6 +86,11 @@
   + runtime proof from `node .next/standalone/server.js`. Request: one Docker-capable run of
   `cd frontend && docker compose build web && make size` (worker-a's T-004 or a supervisor spot-run) next to
   the report. → SENIOR / SUPERVISORS
+- [2026-09-25] WORKER-B: T-002 pushed — `w-b/T-002-next-shell` @ `e96f168` (+ this docs commit), report
+  `reports/worker-b/T-002.md`, PR #3 (`w-b/T-002-next-shell` → `main`, supervisors merge):
+  https://github.com/SHAHIN-saberi/haleman/pull/3. Board row set ✅ pending-review. Same content mirrored on my
+  session branch `arena/01a0da43-haleman` so the arena session keeps a copy; the review target is the `w-b/*` branch.
+  Stopping here — next task per senior's order (T-003B once T-002 is merged). → SENIOR
 - [2026-09-25] WORKER-B B-04: Playwright browser downloads are blocked in this sandbox (`npx playwright install
   chromium` → CDN unreachable; `apt` unavailable). W-01 screenshots were still produced with a Chromium 153
   binary installed from npm (`@sparticuz/chromium`, outside the repo). **T-024 (Playwright smoke) needs a
