@@ -1,0 +1,86 @@
+# Haleman — single-port compose. ONLY `proxy` publishes a port. Do not add more.
+name: haleman
+
+services:
+  proxy: # Caddy: one entrypoint (HTTP :80), routes /api/* -> api, /* -> web
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-80}:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    depends_on:
+      web:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  web: # Next.js standalone (internal only)
+    build:
+      context: ./frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    restart: unless-stopped
+    expose:
+      - "3000"
+    environment:
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+
+  api: # Django + gunicorn (internal only, stateless, scalable)
+    build:
+      context: ./backend
+      dockerfile: ../docker/Dockerfile.backend
+    restart: unless-stopped
+    expose:
+      - "8000"
+    env_file:
+      - .env
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings
+      GUNICORN_WORKERS: ${GUNICORN_WORKERS:-3}
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; urllib.request.urlopen('http://localhost:8000/api/health/', timeout=4); sys.exit(0)"]
+      interval: 30s
+      timeout: 6s
+      retries: 5
+      start_period: 40s
+    # scale-out: docker compose up -d --scale api=3  (Caddy load-balances; api must stay stateless)
+
+  db: # Postgres (internal only, persisted volume)
+    image: postgres:16-alpine
+    restart: unless-stopped
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-haleman}
+      POSTGRES_USER: ${POSTGRES_USER:-haleman}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-haleman}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pg_data:
+  caddy_data:

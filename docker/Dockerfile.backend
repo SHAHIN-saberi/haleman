@@ -1,0 +1,23 @@
+# Haleman Django API — multi-stage, slim, non-root. Budget: <= 350MB.
+# Contract: build context = ./backend ; must contain requirements.txt, manage.py, config/wsgi.py
+
+# ---------- builder: compile wheels ----------
+FROM python:3.12-slim AS builder
+ENV PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential libpq-dev     && rm -rf /var/lib/apt/lists/*
+WORKDIR /wheels
+COPY requirements.txt .
+RUN pip wheel --no-deps --wheel-dir /wheels/dist -r requirements.txt
+
+# ---------- final: runtime only ----------
+FROM python:3.12-slim AS final
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1     DJANGO_SETTINGS_MODULE=config.settings
+RUN apt-get update && apt-get install -y --no-install-recommends libpq5     && rm -rf /var/lib/apt/lists/*     && useradd -m -u 10001 appuser
+WORKDIR /app
+COPY --from=builder /wheels/dist /wheels/dist
+RUN pip install --no-deps /wheels/dist/* && rm -rf /wheels     && python -c "import django; print(django.get_version())"
+COPY --chown=appuser:appuser . /app
+USER appuser
+EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=6s --retries=5 --start-period=40s     CMD python -c "import urllib.request,sys; urllib.request.urlopen('http://localhost:8000/api/health/', timeout=4); sys.exit(0)"
+CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers ${GUNICORN_WORKERS:-3} --timeout 60 --access-logfile -"]

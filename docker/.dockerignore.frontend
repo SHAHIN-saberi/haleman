@@ -1,0 +1,15 @@
+# keep frontend image lean — context is ./frontend, place a copy there as .dockerignore
+node_modules/
+.next/
+out/
+dist/
+.env*
+!.env.example
+.git/
+.gitignore
+README.md
+Dockerfile*
+docker-compose*
+coverage/
+.nyc_output/
+*.log

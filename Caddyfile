@@ -1,0 +1,20 @@
+# Haleman reverse proxy — single entrypoint. All routing lives here.
+{
+	auto_https off
+	admin off
+}
+
+:80 {
+	# API + health -> Django (strip nothing; backend serves under /api/*)
+	handle /api/* {
+		reverse_proxy api:8000
+	}
+	# everything else -> Next.js
+	handle {
+		reverse_proxy web:3000
+	}
+	log {
+		output stdout
+		format console
+	}
+}
