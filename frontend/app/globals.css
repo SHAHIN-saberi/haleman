@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/fonts.css";
+
+/*
+ * Base layer only — all colors come from `styles/tokens.css` via the Tailwind
+ * theme mapping (utilities such as `bg-bg`, `text-text`, `border-border`).
+ */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: "Vazirmatn", Tahoma, sans-serif;
+    line-height: 1.8;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Visible, token-based focus ring for every keyboard-reachable control. */
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--primary-bg);
+  }
+}

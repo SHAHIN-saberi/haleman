@@ -1,0 +1,3 @@
+# frontend-local ignores (root .gitignore already covers node_modules/, .next/, out/)
+tsconfig.tsbuildinfo
+next-env.d.ts

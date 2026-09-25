@@ -1,0 +1,29 @@
+/*
+ * Vazirmatn — self-hosted from design/brand-kit/fonts/ (copied byte-identical
+ * into public/fonts/). No third-party font origin: privacy + Iran reachability
+ * (M1-orders-1.md §0 "Forbidden", TD-08).
+ */
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

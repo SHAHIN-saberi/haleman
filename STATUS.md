@@ -16,7 +16,7 @@
 |---|---|---|---|---|
 | T-000 M0 infra blockers (F2/F3/F4/F7) + fresh-clone gate | worker-a | `w-a/T-000-m0-boot-check` | ⬜ todo (start now) | reports/worker-a/T-000.md |
 | T-001 Django project + health + device model | worker-a | `w-a/T-001-django-skeleton` | ⬜ todo (after T-000 pushed) | reports/worker-a/T-001.md |
-| T-002 Next.js shell + RTL + theme + fonts + W-01 | worker-b | `w-b/T-002-next-shell` | ⬜ todo (start now) | reports/worker-b/T-002.md |
+| T-002 Next.js shell + RTL + theme + fonts + W-01 | worker-b | `w-b/T-002-next-shell` | ✅ pending-review (pushed 2026-09-25) | reports/worker-b/T-002.md |
 | T-003A consent API + log + server gate | worker-a | `w-a/T-003A-consent-api` | ⏸ blocked on T-001 merge | reports/worker-a/T-003A.md |
 | T-003B W-02 screen + /chat placeholder | worker-b | `w-b/T-003B-consent-screen` | ⏸ blocked on T-002 merge | reports/worker-b/T-003B.md |
 | T-004 compose integration + make check + M1 acceptance | worker-a (B on call) | `w-a/T-004-compose-integration` | ⏸ blocked on T-001..T-003B merge | reports/worker-a/T-004.md |
@@ -80,3 +80,13 @@
   before the workers start.** → SUPERVISORS
 - [2026-09-25] SENIOR: B-02 → opened PR #1 (`arena/01a0da37-haleman` → `main`, docs only):
   https://github.com/SHAHIN-saberi/haleman/pull/1 — awaiting supervisor merge. → SUPERVISORS
+- [2026-09-25] WORKER-B B-03: worker-b's sandbox has **no Docker engine** (`docker version` → `command not
+  found`), so `docker compose build web` + `make size` (the web image ≤ 250 MB gate) cannot be produced from
+  T-002. Substituted in the T-002 report: exact standalone runner payload (66.7 MB → ≈197 MB estimated image)
+  + runtime proof from `node .next/standalone/server.js`. Request: one Docker-capable run of
+  `cd frontend && docker compose build web && make size` (worker-a's T-004 or a supervisor spot-run) next to
+  the report. → SENIOR / SUPERVISORS
+- [2026-09-25] WORKER-B B-04: Playwright browser downloads are blocked in this sandbox (`npx playwright install
+  chromium` → CDN unreachable; `apt` unavailable). W-01 screenshots were still produced with a Chromium 153
+  binary installed from npm (`@sparticuz/chromium`, outside the repo). **T-024 (Playwright smoke) needs a
+  decision**: Chromium-capable CI, or the same npm-shipped-browser fallback. → SENIOR
