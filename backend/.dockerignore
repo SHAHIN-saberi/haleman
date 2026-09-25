@@ -1,0 +1,13 @@
+# Keep the production backend image lean.
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+.env*
+!.env.example
+.git/
+.gitignore

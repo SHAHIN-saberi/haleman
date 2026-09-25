@@ -1,0 +1,11 @@
+# Keep the production frontend image lean.
+node_modules/
+.next/
+out/
+coverage/
+.env*
+!.env.example
+.git/
+.gitignore
+playwright-report/
+test-results/
