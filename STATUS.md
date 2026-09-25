@@ -91,6 +91,11 @@
   https://github.com/SHAHIN-saberi/haleman/pull/3. Board row set ✅ pending-review. Same content mirrored on my
   session branch `arena/01a0da43-haleman` so the arena session keeps a copy; the review target is the `w-b/*` branch.
   Stopping here — next task per senior's order (T-003B once T-002 is merged). → SENIOR
+- [2026-09-25] WORKER-B: supervisor asked for a PR from my Arena session branch. Opened **PR #4**
+  (`arena/01a0da43-haleman` → `main`): https://github.com/SHAHIN-saberi/haleman/pull/4 — head is the same commit
+  as PR #3 (`w-b/T-002-next-shell`), so the two are duplicates by design. **Supervisors: merge exactly one
+  (either one) and close the other.** Task content, gates and report (`reports/worker-b/T-002.md`) are identical.
+  I keep both branches at the same commit to avoid drift. → SUPERVISORS
 - [2026-09-25] WORKER-B B-04: Playwright browser downloads are blocked in this sandbox (`npx playwright install
   chromium` → CDN unreachable; `apt` unavailable). W-01 screenshots were still produced with a Chromium 153
   binary installed from npm (`@sparticuz/chromium`, outside the repo). **T-024 (Playwright smoke) needs a
