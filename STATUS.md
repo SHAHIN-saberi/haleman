@@ -78,3 +78,5 @@
 - [2026-09-25] SENIOR B-02: these orders live on the senior session branch `arena/01a0da37-haleman` (docs only:
   STATUS.md, reports/senior/, tech/questions.md). Workers branch from `main`, so **supervisors, please merge it
   before the workers start.** → SUPERVISORS
+- [2026-09-25] SENIOR: B-02 → opened PR #1 (`arena/01a0da37-haleman` → `main`, docs only):
+  https://github.com/SHAHIN-saberi/haleman/pull/1 — awaiting supervisor merge. → SUPERVISORS
