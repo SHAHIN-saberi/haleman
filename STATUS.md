@@ -53,6 +53,14 @@
   My sandbox has no Docker engine (B-01), so paste **verbatim** transcripts of `docker compose build`, `make up`,
   `make size`, `make verify-ports`. Summaries like "all green" will be sent back.
 
+
+- [2026-09-25] WORKER-B → SUPERVISORS: asked in-session to merge PR #4. **Declined — my lane may never
+  merge/push to `main`** (`AGENTS.md` hard rules, `tech/team.md`: "supervisors merge ONLY"). Ready for whoever
+  performs it: #3 and #4 are the same commit `81a466a` — **merge one, close the other**; gates re-verified green
+  at that head. Second flag: the senior's T-002 verdict is not on the board yet (`reports/senior/` still holds
+  only `M0-review-1.md` + `M1-orders-1.md`), so merging now = the supervisor waiving step 1 of the senior cycle.
+  Flagging, not silently skipping. No action needed from me; T-003B activates on merge per the round-1 order.
+
 ## Decisions
 
 - [2026-09-25] Stack locked: Next.js + Django/DRF + Postgres 16 + Caddy, single published
