@@ -24,7 +24,7 @@
 | T-000 M0 infra blockers (F2/F3/F4/F7) + fresh-clone gate | worker-a | `arena/01a0da44-haleman` (alias of `w-a/T-000-m0-boot-check`, D-S7) | ✅ merged (PR #2) · senior: approve post-merge; Docker evidence carried to T-004 | reports/worker-a/T-000.md |
 | T-001 Django project + health + device model | worker-a | `arena/01a0dc32-haleman` (alias of `w-a/T-001-django-skeleton`, D-S7) | ✅ merged (PR #6, supervisor) · senior: **approve** (M1-review-2); Docker evidence carried to T-004 | reports/worker-a/T-001.md |
 | T-002 Next.js shell + RTL + theme + fonts + W-01 | worker-b | `w-b/T-002-next-shell` | ✅ merged (PR #3/#4) · senior: approve post-merge + T-002F | reports/worker-b/T-002.md |
-| T-002F shell follow-ups (drop sharp/LGPL, exact eslint pin, W-01 header brand, README env) | worker-b | `arena/01a0dc47-haleman` (alias of `w-b/T-002F-shell-followups`, D-S7) | ✅ pending-review (PR to `main`, see Blockers 2026-09-26) · Docker gates = missing evidence (B-01) | reports/worker-b/T-002F.md |
+| T-002F shell follow-ups (drop sharp/LGPL, exact eslint pin, W-01 header brand, README env) | worker-b | `arena/01a0dc47-haleman` (alias of `w-b/T-002F-shell-followups`, D-S7) | ✅ merged (PR #8, supervisor) · senior review **pending** (post-merge) · Docker gates = missing evidence (B-01) | reports/worker-b/T-002F.md |
 | T-003A consent API + log + server gate | worker-a | `w-a/T-003A-consent-api` | ⬜ todo — **start now** (T-001 merged; carry N-1 required + N-2 optional from `M1-review-2`) | reports/worker-a/T-003A.md |
 | T-003B W-02 screen + /chat placeholder | worker-b | `w-b/T-003B-consent-screen` | ⬜ todo (after T-002F pushed) | reports/worker-b/T-003B.md |
 | T-004 compose integration + make check + M1 acceptance (+ amendments a–d) | worker-a (B on call) | `w-a/T-004-compose-integration` | ⏸ blocked on T-001, T-002F, T-003A, T-003B merge **+ Q-01 (Docker runner)** | reports/worker-a/T-004.md |
@@ -212,3 +212,13 @@
   `docker compose build web`, real `make size` for `haleman-web`, `make verify-ports` and `make check` are
   **MISSING EVIDENCE, not passing**. Substituted: exact runner payload 17.9 MB (was 66.0 MB) + standalone runtime proof.
   Still needs the Docker-capable run (Q-01 / T-004 amendment d). → SENIOR / SUPERVISORS
+- [2026-09-26] SUPERVISOR (AI) spot-check of `main` @ `fded81f` (after PR #5–#8). Run here, no Docker:
+  backend on real Postgres 16 (pgserver): `pytest` → **19 passed**, total cov **95 %**, `ruff check` clean,
+  `manage.py check` 0 issues, `makemigrations --check` no changes. Frontend: `npm ci`, `lint`, `typecheck` green,
+  `check:tokens` → "OK … 17 files, 0 stray hexes", `next build` green, `.next/standalone` = 19 MB (sharp gone, 7 pkgs).
+  Static port check: compose publishes only `${APP_PORT:-80}:80` on proxy. **NOT verified (B-01):** `make up`,
+  `make size`, runtime `make verify-ports`, in-image pytest. Board truth-up: T-002F → merged (PR #8), senior
+  post-merge review still owed. Open for owner: **Q-01 (blocks T-004/M1 exit)** + Q-03..Q-10 unanswered in
+  `tech/questions.md`; Q-10 = T-000/T-002/T-002F merged before senior review. Next: worker-a T-003A, worker-b T-003B
+  (both unblocked). → SENIOR / OWNER
+
