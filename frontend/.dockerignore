@@ -1,11 +1,18 @@
-# Keep the production frontend image lean.
+# Build context is ./frontend. The build stage needs the sources; `npm ci` fetches
+# anything else. `public/fonts/*.ttf` MUST stay: they are the self-hosted Vazirmatn.
 node_modules/
 .next/
 out/
+dist/
 coverage/
-.env*
+.nyc_output/
+.env
+.env.*
 !.env.example
 .git/
 .gitignore
-playwright-report/
-test-results/
+.dockerignore
+README.md
+Dockerfile*
+docker-compose*
+*.log

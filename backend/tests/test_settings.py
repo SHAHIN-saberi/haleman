@@ -25,6 +25,8 @@ def _subprocess_settings(env_overrides: dict) -> dict:
                      "POSTGRES_PASSWORD", "POSTGRES_HOST", "POSTGRES_PORT"}
     }
     env["DJANGO_SECRET_KEY"] = "subprocess-test-key-not-used-in-prod" + "0" * 40
+    # Not a placeholder: with DJANGO_DEBUG=0 the settings guard (T-004) rejects `change-me*`.
+    env["POSTGRES_PASSWORD"] = "subprocess-test-password"
     env.update(env_overrides)
     proc = subprocess.run(RUN, capture_output=True, text=True, env=env, check=True)
     return json.loads(proc.stdout)
@@ -85,3 +87,63 @@ def test_installed_apps_stateless():
     assert "django.contrib.sessions" not in apps
     middleware = djconf.settings.MIDDLEWARE
     assert not any("Session" in m or "Csrf" in m or "Authentication" in m for m in middleware)
+
+
+# --- placeholder guard (T-004 amendment c) -------------------------------------
+# `.env.example` ships `change-me…`; in production mode that must stop the boot, and
+# with DJANGO_DEBUG=1 it stays allowed (local hacking without `make env`).
+
+REAL_KEY = "subprocess-test-key-not-used-in-prod" + "0" * 40
+
+
+def _run_settings(env_overrides: dict):
+    env = {k: v for k, v in os.environ.items() if k not in {
+        "DJANGO_SECRET_KEY", "DJANGO_DEBUG", "POSTGRES_PASSWORD", "POSTGRES_HOST",
+        "POSTGRES_DB", "POSTGRES_USER", "POSTGRES_PORT", "CSRF_TRUSTED_ORIGINS",
+    }}
+    env.update(env_overrides)
+    return subprocess.run(
+        [sys.executable, "-c", "import config.settings"], capture_output=True, text=True, env=env
+    )
+
+
+def test_placeholder_secret_key_refused_when_debug_off():
+    proc = _run_settings({
+        "DJANGO_SECRET_KEY": "change-me-50-chars-min",
+        "POSTGRES_PASSWORD": "real-password",
+        "DJANGO_DEBUG": "0",
+    })
+
+    assert proc.returncode != 0
+    assert "DJANGO_SECRET_KEY" in proc.stderr and "make env" in proc.stderr
+
+
+def test_placeholder_db_password_refused_when_debug_off():
+    proc = _run_settings({
+        "DJANGO_SECRET_KEY": REAL_KEY,
+        "POSTGRES_PASSWORD": "change-me",
+        "DJANGO_DEBUG": "0",
+    })
+
+    assert proc.returncode != 0
+    assert "POSTGRES_PASSWORD" in proc.stderr
+
+
+def test_placeholders_allowed_with_debug_on():
+    proc = _run_settings({
+        "DJANGO_SECRET_KEY": "change-me-50-chars-min",
+        "POSTGRES_PASSWORD": "change-me",
+        "DJANGO_DEBUG": "1",
+    })
+
+    assert proc.returncode == 0, proc.stderr
+
+
+def test_real_values_pass_in_production_mode():
+    proc = _run_settings({
+        "DJANGO_SECRET_KEY": REAL_KEY,
+        "POSTGRES_PASSWORD": "a-real-password",
+        "DJANGO_DEBUG": "0",
+    })
+
+    assert proc.returncode == 0, proc.stderr

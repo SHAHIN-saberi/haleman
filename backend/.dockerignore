@@ -1,13 +1,25 @@
-# Keep the production backend image lean.
+# Build context is ./backend. Keep the image lean, but DO keep `tests/`, `pytest.ini`
+# and `ruff.toml`: the T-004 `test` stage runs the suite inside the image built from
+# this context, and the prod layer it inherits is identical (the files are ~40 KB).
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
 .venv/
 venv/
-__pycache__/
-*.pyc
-*.pyo
-.pytest_cache/
-.coverage
-htmlcov/
-.env*
+env/
+.env
+.env.*
 !.env.example
 .git/
 .gitignore
+.dockerignore
+README.md
+Dockerfile*
+docker-compose*
+*.log
+*.sqlite3

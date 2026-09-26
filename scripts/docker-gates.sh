@@ -175,14 +175,11 @@ echo "--- probe /api/chat/ (INFO; 403 consent_required only after T-003A, 404 be
 code=$(fetch chat "$BASE/api/chat/" -b "$jar")
 echo "status=$code body=$([ -f "$OUT/chat.body" ] && cat "$OUT/chat.body" || echo "(no body)")"
 
-step "7/8 in-image pytest (activates with the T-004 test stage)"
+step "7/8 in-image backend gate: make test-backend (ruff + pytest + coverage)"
 if [ -f docker-compose.test.yml ]; then
-  docker compose -f docker-compose.yml -f docker-compose.test.yml build api \
-    && docker compose -f docker-compose.yml -f docker-compose.test.yml run --rm api sh -c \
-       'python -m pytest -q --cov=. --cov-fail-under=80' \
-    && ok "in-image pytest" || fail "in-image pytest"
+  make test-backend && ok "make test-backend" || fail "make test-backend"
 else
-  echo "MISSING: docker-compose.test.yml (T-004 adds the test stage) — in-image pytest NOT produced."
+  echo "MISSING: docker-compose.test.yml (T-004) — in-image pytest NOT produced."
 fi
 
 step "8/8 M1 acceptance script (activates when T-004 lands it)"

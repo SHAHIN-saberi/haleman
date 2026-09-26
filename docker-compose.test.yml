@@ -1,0 +1,19 @@
+# Haleman — test override (T-004). NEVER deployed; it only adds the dev tooling layer
+# (`docker/Dockerfile.backend` stage `test`) on top of the prod image.
+#
+#   docker compose -f docker-compose.yml -f docker-compose.test.yml run --rm api <cmd>
+#
+# Same compose project (`name: haleman`), so `run` reuses the real `db` service and the
+# same `.env`. There is deliberately NO `ports:` anywhere here: the test stack cannot
+# publish anything, which is what `make verify-ports` checks on the production files.
+name: haleman
+
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: ../docker/Dockerfile.backend
+      target: test
+    # Separate image name: `make size` and `docker images` stay clean, and a test
+    # layer can never be mistaken for the shippable `haleman-api`.
+    image: haleman-api-test

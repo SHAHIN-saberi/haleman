@@ -14,6 +14,13 @@ contract: `package.json`, `next.config` with `output: 'standalone'`, `npm run bu
   `/calm` (W-05) `/login` (W-06) `/doctors` (W-07) `/summary` (W-08) `/me` (W-09);
   crisis overlay component mounted on every route.
 
+## Container contract (T-004)
+
+- `.dockerignore` lives **here** (context is `./frontend`); `public/fonts/*.ttf` stay in
+  the context on purpose — they are the self-hosted Vazirmatn.
+- Base image is `node:22-alpine` for both stages (Q-05); the runner copies only
+  `.next/standalone`, `.next/static` and `public`, and runs as the non-root `nextjs` user.
+
 ## Environment
 
 - `ALLOWED_DEV_ORIGINS` (**dev-only**, optional): comma-separated hostnames `next dev` accepts for

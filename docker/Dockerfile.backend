@@ -21,3 +21,12 @@ USER appuser
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=6s --retries=5 --start-period=40s     CMD python -c "import urllib.request,sys; urllib.request.urlopen('http://localhost:8000/api/health/', timeout=4); sys.exit(0)"
 CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers ${GUNICORN_WORKERS:-3} --timeout 60 --access-logfile -"]
+
+# ---------- test: the prod layer above + dev tooling (T-004, never deployed) ----------
+# Same base as `final`, so `make test-backend` gates the exact runtime that ships.
+# Used through docker-compose.test.yml (build.target: test, image: haleman-api-test).
+FROM final AS test
+USER root
+COPY requirements-dev.txt ./
+RUN pip install --no-cache-dir -r requirements-dev.txt && rm -f requirements-dev.txt
+USER appuser

@@ -82,6 +82,23 @@ DATABASES = {
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# --- placeholder guard (T-004 amendment c) ------------------------------------
+# `.env.example` ships `change-me…` values on purpose: they are obviously wrong, and
+# with DEBUG=0 they must stop the boot instead of silently signing cookies / connecting
+# to Postgres with a public password. `make env` generates real random values.
+if not DEBUG:
+    _PLACEHOLDERS = (
+        ("DJANGO_SECRET_KEY", SECRET_KEY),
+        ("POSTGRES_PASSWORD", DATABASES["default"]["PASSWORD"]),
+    )
+    for _name, _value in _PLACEHOLDERS:
+        if str(_value).strip().lower().startswith("change-me"):
+            raise ImproperlyConfigured(
+                f"{_name} still has the example value from .env.example and DJANGO_DEBUG=0. "
+                "Run `make env` (creates .env with random secrets) or set a real value. "
+                "Placeholders are accepted only with DJANGO_DEBUG=1."
+            )
+
 # --- i18n / tz ----------------------------------------------------------------
 
 LANGUAGE_CODE = "fa"

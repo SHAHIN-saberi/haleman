@@ -71,6 +71,19 @@
   Deviations D-1…D-5 (incl. the plan-gate `/terms` copy superseding the older stub wording) are listed in the report.
   Next: T-004 (compose integration + `make check` + M1 acceptance, amendments a–f). → OWNER
 
+- [2026-09-26] SENIOR: **T-004 done-on-branch** — `docker-compose.test.yml` + `Dockerfile.backend` stage `test`
+  (prod layer byte-identical), `node:22-alpine` (Q-05), real `.dockerignore` in both build contexts (templates
+  deleted), `make check` as the single gate (build → in-image ruff/pytest/coverage → frontend lint/typecheck/
+  check:tokens/build → one-port check), `make env` now generating random secrets via `scripts/init-env.py`
+  (`.env` 0600, never overwritten) and `config/settings.py` refusing `change-me*` when `DJANGO_DEBUG=0`
+  (4 tests), and **`scripts/m1-acceptance.sh`** (23 checks through the published port). Evidence produced here:
+  51 tests / 96.43 %, ruff/check/migrations clean, YAML + syntax + `make -n` validated, `make env` +
+  placeholder-guard demos, acceptance **PASS 23/23** against a live gunicorn + standalone-Next + one-port proxy
+  stack, and the negative run (wrong port → FAIL, exit 1) proving the gate is not vacuous. **Docker-dependent
+  evidence is MISSING (B-01, exit 2), never reported as passing** — owner spot-run is one line in the report.
+  M1 code work is now complete; next is the **M1 milestone gate** (`M1-final.md` per `tests.md` §B) + owner verdict.
+  → OWNER
+
 ## Task board
 
 | Task | Lane | Branch | Status | Report |
@@ -81,7 +94,7 @@
 | T-002F shell follow-ups (drop sharp/LGPL, exact eslint pin, W-01 header brand, README env) | worker-b | `arena/01a0dc47-haleman` (alias of `w-b/T-002F-shell-followups`, D-S7) | ✅ merged (PR #8, supervisor) · senior: **approve** (post-merge, `reports/senior/M1-review-3.md`) · Docker gates = missing evidence (B-01) | reports/worker-b/T-002F.md |
 | T-003A consent API + log + server gate (+ N-1 envelope, + N-2 tightened) | senior | this branch | ✅ done-on-branch (awaiting owner) — 47 tests, 96.46 % cov, wire smoke pasted in the report | reports/senior/T-003A.md |
 | T-003B W-02 screen + /chat placeholder (+ Q-07 interim 115 link, + Q-11 `app/not-found.tsx`, + F-2 focus-ring transition fix) | senior | this branch | ✅ done-on-branch (awaiting owner) — copy byte-exact vs wireframe, 13/13 browser checks, F-2 root cause measured | reports/senior/T-003B.md |
-| T-004 compose integration + make check + M1 acceptance (+ amendments a–f, incl. `node:22-alpine` per Q-05) | senior | this branch | ⏳ after T-003A/T-003B; Docker evidence now runnable (Q-01) | reports/senior/T-004.md |
+| T-004 compose integration + make check + M1 acceptance (+ amendments a–f, incl. `node:22-alpine` per Q-05) | senior | this branch | ✅ done-on-branch (awaiting owner) — 51 tests / 96.43 %, acceptance script 23/23 live (non-Docker stack); Docker gates = MISSING (B-01) | reports/senior/T-004.md |
 
 (Further milestones: senior extends the board from `tech/tasks.md` when assigning.)
 

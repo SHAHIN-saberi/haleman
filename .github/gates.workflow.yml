@@ -68,13 +68,9 @@ jobs:
           if-no-files-found: warn
 
   make-check:
-    name: make check (evidence-only until T-004 wires it)
+    name: "make check (images · backend · frontend · one published port)"
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    # T-004 turns `make check` into the single entry gate (test stage + tokens + build).
-    # Until then it cannot pass (the prod image has no pytest), so it reports instead of
-    # failing. T-004 removes this line — that is the whole point of the workflow.
-    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
