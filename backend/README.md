@@ -1,4 +1,4 @@
-# backend/ — Django API contract (worker-a lane, senior reviews)
+# backend/ — Django API contract (backend/engine lane, solo senior)
 
 Build here per `tech/tasks.md` (T-001 first). Must satisfy `../docker/Dockerfile.backend`
 contract: `requirements.txt` (pinned, prod-only), `manage.py`, `config/wsgi.py`,

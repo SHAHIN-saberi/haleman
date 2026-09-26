@@ -1,4 +1,4 @@
-# Build Tasks — senior assigns, workers execute, one branch + one report per task
+# Build Tasks — the queue; the solo senior executes one task per step, with a plan gate and a report per task
 
 Status lives in `STATUS.md` board (`⬜ → 🔄 → ✅ pending-review → merged`).
 Done = acceptance holds on the compose stack + gates in `tech/team.md` green.
@@ -70,4 +70,5 @@ Done = acceptance holds on the compose stack + gates in `tech/team.md` green.
 - **T-025** Production compose hardening + runbook + M4 final report | acc: public URL
   serves full journey; fresh-clone setup <15 min; senior files final report (senior-led)
 
-Lanes: A = backend/engine, B = frontend. Senior may reassign any task in STATUS.md orders.
+Lanes: A = backend/engine, B = frontend — **code placement only** (the worker lanes were retired on 2026-09-26;
+see `tech/team.md` §Solo-senior mode). Status lives in the `STATUS.md` board.

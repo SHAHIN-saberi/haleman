@@ -1,7 +1,9 @@
 # STATUS — Haleman build coordination (append-only, newest at bottom of each section)
 
-> Roles: supervisors (owner+AI) · senior · worker-a (backend lane) · worker-b (frontend lane).
-> Protocol: `tech/team.md`. Tasks: `tech/tasks.md`. Tests: `tech/tests.md`.
+> Roles: **owner** (product owner) · **solo senior** (the build agent) — the worker lanes were retired on
+> 2026-09-26 (solo-senior mode). Protocol: `tech/team.md`. Tasks: `tech/tasks.md`. Tests: `tech/tests.md`.
+> Entries dated 2026-09-25 / 26-before-this-note are the history of the retired three-agent model; they are kept
+> append-only and are not rewritten.
 
 ## Milestone
 
@@ -46,9 +48,16 @@
   launch**. Gates: check:tokens 17 files / 0 stray hexes, lint, typecheck, build green; browser-measured contrast
   table in `reports/senior/step-0.3-decisions.md`. → ALL
 
+- [2026-09-26] SENIOR: **Step 0.4 done — the three-agent model is retired in the docs** (solo-senior mode).
+  `AGENTS.md` rewritten as the solo-senior entry point (read order, one-branch protocol, plan/done gates,
+  non-negotiables); `tech/team.md` rewritten with a "Solo-senior mode" protocol and the old model kept below the
+  line as history (D-S8/D-S11 lessons preserved); this file's header + board column relabelled. Goals, scope, stack
+  and every gate unchanged. No code touched. Report: `reports/senior/step-0.4-solo-mode.md`. **Step 0 complete.**
+  → ALL
+
 ## Task board
 
-| Task | Worker | Branch | Status | Report |
+| Task | Lane | Branch | Status | Report |
 |---|---|---|---|---|
 | T-000 M0 infra blockers (F2/F3/F4/F7) + fresh-clone gate | worker-a | `arena/01a0da44-haleman` (alias of `w-a/T-000-m0-boot-check`, D-S7) | ✅ merged (PR #2) · senior: approve post-merge; Docker evidence carried to T-004 | reports/worker-a/T-000.md |
 | T-001 Django project + health + device model | worker-a | `arena/01a0dc32-haleman` (alias of `w-a/T-001-django-skeleton`, D-S7) | ✅ merged (PR #6, supervisor) · senior: **approve** (M1-review-2); Docker evidence carried to T-004 | reports/worker-a/T-001.md |
@@ -204,6 +213,12 @@
   restricting a control to large text. `--border` stays a soft hairline (1.14:1) by decision — affordance is carried
   by the 2 px `--primary` ring and 44 px controls. → ALL
 - [2026-09-26] SENIOR D-S15: `src/` is deleted; `backend/` + `frontend/` are the only app roots (Q-06, closes D-S3).
+  → ALL
+
+- [2026-09-26] SENIOR D-S16: **solo-senior mode** is the operating model (owner-approved, Step 0.4). One agent, one
+  session branch, one PR to `main` at the end (owner merges, squash). `AGENTS.md` + `tech/team.md` are authoritative
+  for the protocol; the retired worker/senior cycles are history below the line in `team.md`. Lane rules survive
+  only as code placement (backend/engine vs frontend) and as the "no business logic in the frontend" prohibition.
   → ALL
 
 ## Blockers

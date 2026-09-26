@@ -19,7 +19,7 @@
 
 | TD-13 | Containers | Multi-stage slim Dockerfiles + `.dockerignore` + non-root + healthchecks | Small, secure, cache-friendly images | Budgets enforced: backend ≤350MB, frontend ≤250MB (`make size`) |
 | TD-14 | Single port | Caddy 2-alpine as sole entrypoint; `/api/*`→api, `/*`→web; nothing else publishes | One-port rule, auto load-balance on `--scale api=N` | Any second published port fails the task |
-| TD-15 | Build team | 1 senior + 2 workers via git branches + STATUS.md + reports/ ; supervisors merge `main` | Parallel lanes with review gates; harness-neutral | Protocol in `tech/team.md`; senior breaks ties, supervisors override |
+| TD-15 | Build team | **Solo senior** (one agent) on one session branch → one PR → owner merges; plan gate + report per task | The three-agent split cost more coordination than it saved at this size | Superseded 2026-09-26 (D-S16); protocol in `tech/team.md` |
 
 - Free tiers / OSS only. New deps need owner approval + a report entry.
 - **Licence rule (Q-04):** permissive OSS (MIT / BSD / Apache-2.0 / ISC) plus LGPL libraries used unmodified;

@@ -1,4 +1,4 @@
-# frontend/ — Next.js contract (worker-b lane, senior reviews)
+# frontend/ — Next.js contract (frontend lane, solo senior)
 
 Build here per `tech/tasks.md` (T-002 first). Must satisfy `../docker/Dockerfile.frontend`
 contract: `package.json`, `next.config` with `output: 'standalone'`, `npm run build` green.
