@@ -1,0 +1,13 @@
+# Haleman API — production dependencies, fully pinned INCLUDING transitive deps (F6).
+# Verify in a clean venv:  pip install --no-deps -r requirements.txt && pip check
+# All pre-approved in M1-orders-1.md §0. Licenses: Django BSD-3, DRF BSD-3,
+# gunicorn MIT, psycopg/psycopg-binary LGPL-3.0 (unmodified library, Q-04).
+asgiref==3.12.1
+Django==5.2.17
+djangorestframework==3.16.1
+gunicorn==23.0.0
+packaging==26.3
+psycopg==3.2.13
+psycopg-binary==3.2.13
+sqlparse==0.6.0
+typing_extensions==4.16.0

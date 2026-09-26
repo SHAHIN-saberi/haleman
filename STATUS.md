@@ -22,10 +22,10 @@
 | Task | Worker | Branch | Status | Report |
 |---|---|---|---|---|
 | T-000 M0 infra blockers (F2/F3/F4/F7) + fresh-clone gate | worker-a | `arena/01a0da44-haleman` (alias of `w-a/T-000-m0-boot-check`, D-S7) | ✅ merged (PR #2) · senior: approve post-merge; Docker evidence carried to T-004 | reports/worker-a/T-000.md |
-| T-001 Django project + health + device model | worker-a | `arena/01a0dc32-haleman` (alias of `w-a/T-001-django-skeleton`, D-S7) | ✅ pending-review (2026-09-26) · senior: **approve** (M1-review-2) — awaiting supervisor merge of PR #6 | reports/worker-a/T-001.md |
+| T-001 Django project + health + device model | worker-a | `arena/01a0dc32-haleman` (alias of `w-a/T-001-django-skeleton`, D-S7) | ✅ merged (PR #6, supervisor) · senior: **approve** (M1-review-2); Docker evidence carried to T-004 | reports/worker-a/T-001.md |
 | T-002 Next.js shell + RTL + theme + fonts + W-01 | worker-b | `w-b/T-002-next-shell` | ✅ merged (PR #3/#4) · senior: approve post-merge + T-002F | reports/worker-b/T-002.md |
 | T-002F shell follow-ups (drop sharp/LGPL, exact eslint pin, W-01 header brand, README env) | worker-b | `w-b/T-002F-shell-followups` | ⬜ todo — **start now** | reports/worker-b/T-002F.md |
-| T-003A consent API + log + server gate | worker-a | `w-a/T-003A-consent-api` | ⏸ blocked on T-001 merge | reports/worker-a/T-003A.md |
+| T-003A consent API + log + server gate | worker-a | `w-a/T-003A-consent-api` | ⬜ todo — **start now** (T-001 merged; carry N-1 required + N-2 optional from `M1-review-2`) | reports/worker-a/T-003A.md |
 | T-003B W-02 screen + /chat placeholder | worker-b | `w-b/T-003B-consent-screen` | ⬜ todo (after T-002F pushed) | reports/worker-b/T-003B.md |
 | T-004 compose integration + make check + M1 acceptance (+ amendments a–d) | worker-a (B on call) | `w-a/T-004-compose-integration` | ⏸ blocked on T-001, T-002F, T-003A, T-003B merge **+ Q-01 (Docker runner)** | reports/worker-a/T-004.md |
 
@@ -103,6 +103,12 @@
   (correct protocol behavior). The branch stays worker-a's T-001 alias (D-S7, PR #6, verdict: approve in
   `reports/senior/M1-review-2.md`). **worker-b proceeds in a distinct new session** with its own pinned branch;
   queue unchanged (T-002F → T-003B). → ALL
+- [2026-09-26] SENIOR: SUPERVISOR merged **PR #6** (T-001 @ `9c7a73a` → `main` @ `bdc9e53`) — after the senior
+  verdict, as the protocol requires. **T-003A is unblocked** (board row → todo; start condition met; carry N-1 +
+  optionally N-2). Same commit closes the D-S11 correction thread: worker-b still starts fresh in a new session.
+  Recorded: the supervisor then **directed the senior to merge docs PR #7** (this STATUS.md/reports sync); the merge
+  was executed by the senior on that explicit supervisor instruction — a recorded exception to "senior never merges
+  to `main`", which otherwise stands. → ALL
 
 ## Decisions
 
@@ -157,6 +163,18 @@
   https://github.com/SHAHIN-saberi/haleman/pull/3. Board row set ✅ pending-review. Same content mirrored on my
   session branch `arena/01a0da43-haleman` so the arena session keeps a copy; the review target is the `w-b/*` branch.
   Stopping here — next task per senior's order (T-003B once T-002 is merged). → SENIOR
+- [2026-09-26] WORKER-A: T-001 started on session branch `arena/01a0dc32-haleman` (alias of the ordered
+  `w-a/T-001-django-skeleton` per D-S7; harness pins the session branch). Pre-flight done: PR #5 merged (`90aa3a3`),
+  branch fast-forwarded from `origin/main`, no prior T-001 work found (no branch/PR, `backend/` still empty).
+  Docker still absent here (`docker: command not found`) → compose/image evidence will be missing from the report (B-01 family).
+  Implementing ONLY T-001 per `reports/senior/M1-orders-1.md` (order unchanged in round 2). → SENIOR
+- [2026-09-26] WORKER-A: T-001 **done, ✅ pending-review** — pushed `arena/01a0dc32-haleman` (alias of
+  `w-a/T-001-django-skeleton` per D-S7). 19 tests pass on real PostgreSQL 16.2 (wheel-bundled in-sandbox, NOT a repo dep),
+  coverage 95.25 % (gate ≥ 80 %), `ruff check .` clean, F6 clean-venv `pip check` → "No broken requirements found.",
+  live gunicorn + curl smoke on the wire: health → `{"ok":true}` no Set-Cookie; `/api/me/` → 43-char `hid`,
+  `HttpOnly; Max-Age=31536000; Path=/; SameSite=Lax`; revisit `is_new:false` no new cookie; garbage cookie → new identity;
+  DB stores sha256 only (wire cookie hash == row prefix, proven). Engine purity guard + mutation test in place.
+  Only `backend/**` + `.env.example` (+CSRF_TRUSTED_ORIGINS) touched. Report: `reports/worker-a/T-001.md`. → SENIOR
 - [2026-09-25] WORKER-B: supervisor asked for a PR from my Arena session branch. Opened **PR #4**
   (`arena/01a0da43-haleman` → `main`): https://github.com/SHAHIN-saberi/haleman/pull/4 — head is the same commit
   as PR #3 (`w-b/T-002-next-shell`), so the two are duplicates by design. **Supervisors: merge exactly one
@@ -169,6 +187,11 @@
 - [2026-09-25] SENIOR: B-03 (worker-b, no Docker) merged into B-01. **No sandbox on this team has a Docker engine.**
   T-004 acceptance is impossible without a Docker-capable runner → Q-01 is now blocking T-004. → SUPERVISORS
 - [2026-09-25] SENIOR: Q-09 (contrast) opened. It blocks T-015 design, not M1. → SUPERVISORS
+- [2026-09-26] WORKER-A T-001: Docker still unavailable here (`docker version` → command not found), so
+  `docker compose build api` output + api image size (≤ 350 MB) are **missing evidence, not passing evidence**.
+  Everything runnable without Docker was run and is pasted verbatim in the report (pytest on real Postgres 16.2,
+  migrate, coverage 95.25 %, ruff, F6 clean-venv pin proof, live gunicorn wire smoke). Request: fold T-001's image
+  evidence into T-004's Docker-capable acceptance or a supervisor spot-run. (Same family as B-01/B-03.) → SENIOR
 - [2026-09-26] SENIOR: T-001 Docker evidence (`docker compose build api` output, api image ≤ 350 MB, in-image pytest)
   is **not produced** — no Docker engine in any team sandbox (B-01). Accepted per worker-a's request as **carried
   evidence into T-004's Docker-capable acceptance**; it is missing evidence, not passing evidence. Q-01 still gates
