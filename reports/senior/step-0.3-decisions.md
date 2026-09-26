@@ -91,8 +91,9 @@ The dark-only rule was also checked at the **CSS** level, because `in-data-[them
 
 Source order decides at equal specificity → the utilities win, and the browser measurement above confirms it.
 
-Evidence images: `reports/senior/img/palette-v11-{soft,primary}-{light,dark}.png` (button crops) and
-`palette-v11-probe-{light,dark}.png` (full screen).
+Evidence images: `reports/senior/img/palette-v11-{soft,primary}-{light,dark}.png` (button crops),
+`palette-v11-probe-{light,dark}.png` (full probe screen) and `palette-v11-w01-{light,dark}.png` (the real W-01,
+which shows the softened `--soft` on the subtitle/link and an unchanged CTA).
 
 ## 3. Gates after the change
 
