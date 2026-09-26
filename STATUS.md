@@ -17,6 +17,17 @@
   Docker image evidence remains missing (B-01) → carried into T-004. Two LOW findings fold into T-003A (N-1 required,
   N-2 optional); process correction recorded (D-S11). Full text: `reports/senior/M1-review-2.md`.
 
+- [2026-09-26] SENIOR (solo-senior mode, §3 of the kickoff): M1 **review round 3** done — T-002F post-merge verdict
+  **approve**, no rework. Every claim re-produced by me in a fresh copy of `main` (rebuilt both heads): standalone
+  65 049 150 B → 16 891 486 B (−74 %), 0 LGPL/GPL and 0 native binaries in what ships, `eslint` exact `9.39.5`,
+  served HTML has no brand on `/` and keeps it elsewhere, W-01 copy byte-equal to the wireframe (ZWNJ intact),
+  fonts sha256-identical, pre-hydration label correct with JS blocked, 360 px + both themes clean.
+  Two recorded findings: **F-1** the unknown-route page still renders Next's injected `#fff`/`#000` page (English
+  copy, no Vazirmatn) — worker-b flagged it; fix needs fa copy → **Q-11**; **F-2** the focus ring animates through
+  ≈100 ms of near-invisible colour because `transition-colors` covers `outline-color` (1.06:1 transient, then the
+  correct 6.31:1 light / 4.93:1 dark) — one-line fix proposed into T-003B. Full text: `reports/senior/M1-review-3.md`.
+  Docker gates remain MISSING (B-01/Q-01). → ALL
+
 ## Task board
 
 | Task | Worker | Branch | Status | Report |
@@ -24,7 +35,7 @@
 | T-000 M0 infra blockers (F2/F3/F4/F7) + fresh-clone gate | worker-a | `arena/01a0da44-haleman` (alias of `w-a/T-000-m0-boot-check`, D-S7) | ✅ merged (PR #2) · senior: approve post-merge; Docker evidence carried to T-004 | reports/worker-a/T-000.md |
 | T-001 Django project + health + device model | worker-a | `arena/01a0dc32-haleman` (alias of `w-a/T-001-django-skeleton`, D-S7) | ✅ merged (PR #6, supervisor) · senior: **approve** (M1-review-2); Docker evidence carried to T-004 | reports/worker-a/T-001.md |
 | T-002 Next.js shell + RTL + theme + fonts + W-01 | worker-b | `w-b/T-002-next-shell` | ✅ merged (PR #3/#4) · senior: approve post-merge + T-002F | reports/worker-b/T-002.md |
-| T-002F shell follow-ups (drop sharp/LGPL, exact eslint pin, W-01 header brand, README env) | worker-b | `arena/01a0dc47-haleman` (alias of `w-b/T-002F-shell-followups`, D-S7) | ✅ merged (PR #8, supervisor) · senior review **pending** (post-merge) · Docker gates = missing evidence (B-01) | reports/worker-b/T-002F.md |
+| T-002F shell follow-ups (drop sharp/LGPL, exact eslint pin, W-01 header brand, README env) | worker-b | `arena/01a0dc47-haleman` (alias of `w-b/T-002F-shell-followups`, D-S7) | ✅ merged (PR #8, supervisor) · senior: **approve** (post-merge, `reports/senior/M1-review-3.md`) · Docker gates = missing evidence (B-01) | reports/worker-b/T-002F.md |
 | T-003A consent API + log + server gate | worker-a | `w-a/T-003A-consent-api` | ⬜ todo — **start now** (T-001 merged; carry N-1 required + N-2 optional from `M1-review-2`) | reports/worker-a/T-003A.md |
 | T-003B W-02 screen + /chat placeholder | worker-b | `w-b/T-003B-consent-screen` | ⬜ todo (after T-002F pushed) | reports/worker-b/T-003B.md |
 | T-004 compose integration + make check + M1 acceptance (+ amendments a–d) | worker-a (B on call) | `w-a/T-004-compose-integration` | ⏸ blocked on T-001, T-002F, T-003A, T-003B merge **+ Q-01 (Docker runner)** | reports/worker-a/T-004.md |
@@ -114,6 +125,18 @@
   404 page, which injects its own `body{background:#fff}` / dark `#000` style (off-palette, English copy, no Vazirmatn).
   Pre-existing since T-002 (no `app/not-found.tsx`). The app header on that route is correct. Suggest a small follow-up
   (fa `not-found.tsx` on tokens) in whichever task you choose. Screenshot: `reports/worker-b/img/t002f-other-route-light.png`.
+
+- [2026-09-26] SENIOR → ALL: T-002F verdict **approve (post-merge)** — `reports/senior/M1-review-3.md`. Worker-b's
+  evidence reproduced line by line (size, licences, pin, header, theme matrix, pre-hydration fix). Two corrections to
+  my own round-1 wording, recorded: (a) the pre-hydration rule I wrote was satisfied by a different mechanism than
+  I described (CSS on `[data-theme]`, not a server-rendered label) — behaviour is correct either way; (b) the
+  "18 → 7 packages" figure counts top-level packages only (23 → 12 with `next/dist/compiled/*` included) — material
+  claims unchanged. **Open for the owner: Q-01 (still blocks T-004 + M1 exit), Q-07, Q-09, Q-11 (new).** → OWNER
+- [2026-09-26] SENIOR → OWNER (Q-11, new): the unknown-route page is Next's built-in 404 — injected
+  `body{background:#fff}` / `#000`, English copy, no Vazirmatn. Fixing it needs Persian copy, which §6 says I must
+  not invent. Recommendation: `app/not-found.tsx` with «این صفحه پیدا نشد» + «شاید نشانی را اشتباه وارد کرده‌ای.» +
+  primary pill «بازگشت به خانه» → `/`. Alternatives: the owner writes the line, or we keep the English default
+  (not recommended). To land in T-003B. → OWNER
 
 ## Decisions
 
@@ -222,3 +245,15 @@
   `tech/questions.md`; Q-10 = T-000/T-002/T-002F merged before senior review. Next: worker-a T-003A, worker-b T-003B
   (both unblocked). → SENIOR / OWNER
 
+- [2026-09-26] SENIOR (F-1, route-level §D — recorded, not a blocker): every unknown route renders Next's built-in
+  404 with injected `body{color:#000;background:#fff…}` (measured `rgb(255,255,255)` light / `rgb(0,0,0)` dark),
+  English copy and no Vazirmatn. Pre-existing since T-002 (no `app/not-found.tsx`); the app header on that route is
+  correct. Fix needs fa copy → **Q-11** to the owner; lands in T-003B. Evidence:
+  `reports/senior/img/senior-t002f-404-{light,dark}.png`. → OWNER
+- [2026-09-26] SENIOR (F-2, a11y — recorded, one-line fix proposed): `transition-colors` includes `outline-color`,
+  so the focus ring starts at the text colour. Measured after Tab on the primary CTA (light): 8 ms `rgb(245,242,234)`,
+  20 ms `rgb(239,237,231)`, 36 ms `rgb(213,215,215)`, 53 ms `rgb(161,173,186)`, settling on `rgb(61,90,128)` —
+  ≈1.06:1 (invisible) for the first ~100 ms, then correct (light 6.31:1 / dark 4.93:1). Fix: replace `transition-colors`
+  with `transition-[color,background-color,border-color]` in `components/ui/Button.tsx` BASE, `components/ThemeToggle.tsx`
+  and the W-01 ghost link. Proposed as a small ordered addition to T-003B (Button.tsx is outside that task's original
+  path list → owner nod requested at the T-003B plan gate). → OWNER

@@ -42,6 +42,13 @@ Build agent: append dated entries. Supervisors answer inline. Never stall silent
 - [2026-09-25] SENIOR Q-10 (process): T-000 + T-002 were merged before the senior review (both workers flagged it). Post-merge
   verdicts are recorded (D-S8). Please confirm the intended order: senior verdict in STATUS.md → supervisor merge.
 
+- [2026-09-26] SENIOR Q-11 (product copy, new): every unknown route serves Next's built-in error page — injected
+  `body{background:#fff}` / `#000`, English copy "This page could not be found.", no Vazirmatn (measured in
+  `reports/senior/M1-review-3.md` F-1). Fixing it needs new Persian user-facing copy, and §6 forbids inventing
+  product copy, so this needs your line. My recommendation: title «این صفحه پیدا نشد», one line
+  «شاید نشانی را اشتباه وارد کرده‌ای.», primary pill «بازگشت به خانه» → `/`. Alternatives: (b) you provide the
+  copy, (c) keep Next's default English page (not recommended — breaks `tests.md` §D on that route). Lands in T-003B.
+
 ## Milestone reports
 
 (none yet — file one after each milestone: what shipped, test results, preview URL, blockers)
