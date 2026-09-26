@@ -180,6 +180,16 @@
   `HttpOnly; Max-Age=31536000; Path=/; SameSite=Lax`; revisit `is_new:false` no new cookie; garbage cookie → new identity;
   DB stores sha256 only (wire cookie hash == row prefix, proven). Engine purity guard + mutation test in place.
   Only `backend/**` + `.env.example` (+CSRF_TRUSTED_ORIGINS) touched. Report: `reports/worker-a/T-001.md`. → SENIOR
+- [2026-09-26] WORKER-A (process observation, no action needed from me): PR #8 (T-002F, worker-b) was merged by the
+  supervisor at 07:13Z (`fded81f`); at merge time `reports/senior/` held no dedicated T-002F verdict (latest round file:
+  `M1-review-2.md` = the T-001 review). That is the second merged-before-review instance after the round-1 flag.
+  Per D-S8 the post-merge verdict path applies — noting for the record only. Worker-b's board row is theirs to
+  truth-up, so I left it untouched.
+- [2026-09-26] WORKER-A (harness note): this session's sandbox was restored from a snapshot mid-flight (git state reset
+  to the pre-session base, shallow clone, narrowed refspec). Repaired by re-aligning my session branch to `origin/main`
+  (`fded81f`) — verified byte-identical content before the reset, zero loss: T-001 code/report intact on `main` via
+  PR #6. No `w-a/*` alias branch needed repair (it lives as this session branch per D-S7). My lane: T-003A stays
+  **not started** here per my briefing — queued for the next worker-a session.
 - [2026-09-25] WORKER-B: supervisor asked for a PR from my Arena session branch. Opened **PR #4**
   (`arena/01a0da43-haleman` → `main`): https://github.com/SHAHIN-saberi/haleman/pull/4 — head is the same commit
   as PR #3 (`w-b/T-002-next-shell`), so the two are duplicates by design. **Supervisors: merge exactly one
