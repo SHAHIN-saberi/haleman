@@ -55,6 +55,13 @@
   and every gate unchanged. No code touched. Report: `reports/senior/step-0.4-solo-mode.md`. **Step 0 complete.**
   → ALL
 
+- [2026-09-26] SENIOR: **T-003A done-on-branch** — `POST /api/consent/` + append-only `Consent` log +
+  server-side gate on `GET /api/chat/`, plus **N-1** (DRF errors normalized to `{code, detail}`) and **N-2**
+  (non-contract methods create no identity at all — proven on the wire: POST/PUT/PATCH/DELETE on `/api/me/` → 405,
+  0 Set-Cookie, 0 rows). 47 tests green on real Postgres 16.2, coverage **96.46 %**, ruff clean, no migration drift,
+  engine purity green. Report: `reports/senior/T-003A.md`. Next: T-003B (W-02 + `/chat` + Q-07 115 link + Q-11
+  `not-found.tsx` + F-2 focus fix). → OWNER
+
 ## Task board
 
 | Task | Lane | Branch | Status | Report |
@@ -63,7 +70,7 @@
 | T-001 Django project + health + device model | worker-a | `arena/01a0dc32-haleman` (alias of `w-a/T-001-django-skeleton`, D-S7) | ✅ merged (PR #6, supervisor) · senior: **approve** (M1-review-2); Docker evidence carried to T-004 | reports/worker-a/T-001.md |
 | T-002 Next.js shell + RTL + theme + fonts + W-01 | worker-b | `w-b/T-002-next-shell` | ✅ merged (PR #3/#4) · senior: approve post-merge + T-002F | reports/worker-b/T-002.md |
 | T-002F shell follow-ups (drop sharp/LGPL, exact eslint pin, W-01 header brand, README env) | worker-b | `arena/01a0dc47-haleman` (alias of `w-b/T-002F-shell-followups`, D-S7) | ✅ merged (PR #8, supervisor) · senior: **approve** (post-merge, `reports/senior/M1-review-3.md`) · Docker gates = missing evidence (B-01) | reports/worker-b/T-002F.md |
-| T-003A consent API + log + server gate | worker-a | `w-a/T-003A-consent-api` | ⬜ todo — **start now** (T-001 merged; carry N-1 required + N-2 optional from `M1-review-2`) | reports/worker-a/T-003A.md |
+| T-003A consent API + log + server gate (+ N-1 envelope, + N-2 tightened) | senior | this branch | ✅ done-on-branch (awaiting owner) — 47 tests, 96.46 % cov, wire smoke pasted in the report | reports/senior/T-003A.md |
 | T-003B W-02 screen + /chat placeholder (+ Q-07 interim 115 link, + Q-11 `app/not-found.tsx`, + F-2 focus-ring transition fix) | senior | this branch | ⬜ todo (next step) | reports/senior/T-003B.md |
 | T-004 compose integration + make check + M1 acceptance (+ amendments a–f, incl. `node:22-alpine` per Q-05) | senior | this branch | ⏳ after T-003A/T-003B; Docker evidence now runnable (Q-01) | reports/senior/T-004.md |
 
@@ -220,6 +227,13 @@
   for the protocol; the retired worker/senior cycles are history below the line in `team.md`. Lane rules survive
   only as code placement (backend/engine vs frontend) and as the "no business logic in the frontend" prohibition.
   → ALL
+
+- [2026-09-26] SENIOR D-S17: the M1 error contract is enforced in one place — DRF `EXCEPTION_HANDLER` =
+  `config.exception_handler.envelope_exception_handler`, body always `{"code", "detail"}` (serializer field errors
+  additionally keep `fields`), and a permission/exception can set its own `code` (used for `consent_required` and
+  `invalid_consent`). Related: `apps/accounts/contract.py::serves_method()` is the single definition of "this view
+  implements this method", used by device authentication and the consent gate so an unimplemented method yields a
+  clean 405 with zero side effects (N-2). → ALL
 
 ## Blockers
 

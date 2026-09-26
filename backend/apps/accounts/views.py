@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.accounts.authentication import NEW_HID_ATTR, DeviceAuthentication, DeviceCookieMixin
+from apps.accounts.permissions import consent_state
 
 
 @api_view(["GET"])
@@ -19,8 +20,8 @@ def health(request):
 class MeView(DeviceCookieMixin, APIView):
     """GET /api/me/ — resolves or issues the anonymous device identity.
 
-    Response per §1 (T-001 scope, without the `consent` key — added in T-003A):
-        {"anonymous": true, "is_new": bool}
+    Response per §1 (T-003A adds `consent`):
+        {"anonymous": true, "is_new": bool, "consent": {"informed": bool, "version": str}}
     """
 
     authentication_classes = [DeviceAuthentication]
@@ -31,5 +32,6 @@ class MeView(DeviceCookieMixin, APIView):
             {
                 "anonymous": True,
                 "is_new": getattr(request, NEW_HID_ATTR, None) is not None,
+                "consent": consent_state(request.auth),
             }
         )

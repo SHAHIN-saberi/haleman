@@ -48,6 +48,8 @@ CSRF_TRUSTED_ORIGINS = _env_list("CSRF_TRUSTED_ORIGINS")
 INSTALLED_APPS = [
     "rest_framework",
     "apps.accounts",
+    "apps.chat",
+    "apps.summaries",
 ]
 
 MIDDLEWARE = [
@@ -106,4 +108,6 @@ REST_FRAMEWORK = {
     "DEFAULT_PARSER_CLASSES": ["rest_framework.parsers.JSONParser"],
     # No contrib.auth app → DRF must not build an AnonymousUser (UNAUTHENTICATED_USER=None).
     "UNAUTHENTICATED_USER": None,
+    # Binding §1 (N-1): every DRF error body is normalized to {"code", "detail"}.
+    "EXCEPTION_HANDLER": "config.exception_handler.envelope_exception_handler",
 }

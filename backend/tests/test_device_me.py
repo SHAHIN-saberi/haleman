@@ -3,6 +3,7 @@
 Covers: first visit → 1 row + cookie flags exactly per §1; revisit → same row,
 count 1, last_seen_at advanced, is_new=false; garbage cookie → new row;
 DB stores sha256(token) only; Secure flag follows COOKIE_SECURE.
+(T-003A added the `consent` key to the response — the assertions below track §1.)
 """
 
 import hashlib
@@ -27,7 +28,11 @@ def test_first_visit_creates_row_and_issues_cookie(api):
     response = api.get("/api/me/")
 
     assert response.status_code == 200
-    assert response.json() == {"anonymous": True, "is_new": True}
+    assert response.json() == {
+        "anonymous": True,
+        "is_new": True,
+        "consent": {"informed": False, "version": "v1"},
+    }
     assert AnonymousIdentity.objects.count() == 1
 
     raw = response.cookies[HID_COOKIE].value
@@ -74,7 +79,11 @@ def test_revisit_resumes_same_identity_and_advances_last_seen(api):
     second = api.get("/api/me/")
 
     assert second.status_code == 200
-    assert second.json() == {"anonymous": True, "is_new": False}
+    assert second.json() == {
+        "anonymous": True,
+        "is_new": False,
+        "consent": {"informed": False, "version": "v1"},
+    }
     assert AnonymousIdentity.objects.count() == 1
     identity_after = AnonymousIdentity.objects.get()
     assert identity_after.id == identity_before.id
@@ -104,8 +113,10 @@ def test_wellformed_but_unknown_cookie_gets_new_identity(api):
 
 
 def test_me_response_has_exactly_contract_keys(api):
-    """T-001 scope: `consent` arrives in T-003A — this locks today's shape."""
+    """§1 contract after T-003A: the `consent` block is part of `/api/me/`."""
 
     response = api.get("/api/me/")
 
-    assert set(response.json().keys()) == {"anonymous", "is_new"}
+    body = response.json()
+    assert set(body.keys()) == {"anonymous", "is_new", "consent"}
+    assert set(body["consent"].keys()) == {"informed", "version"}
