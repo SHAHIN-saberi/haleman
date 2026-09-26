@@ -19,7 +19,7 @@
 | T-000 M0 infra blockers (F2/F3/F4/F7) + fresh-clone gate | worker-a | `arena/01a0da44-haleman` (alias of `w-a/T-000-m0-boot-check`, D-S7) | ✅ merged (PR #2) · senior: approve post-merge; Docker evidence carried to T-004 | reports/worker-a/T-000.md |
 | T-001 Django project + health + device model | worker-a | `w-a/T-001-django-skeleton` | ⬜ todo — **start now** | reports/worker-a/T-001.md |
 | T-002 Next.js shell + RTL + theme + fonts + W-01 | worker-b | `w-b/T-002-next-shell` | ✅ merged (PR #3/#4) · senior: approve post-merge + T-002F | reports/worker-b/T-002.md |
-| T-002F shell follow-ups (drop sharp/LGPL, exact eslint pin, W-01 header brand, README env) | worker-b | `w-b/T-002F-shell-followups` | ⬜ todo — **start now** | reports/worker-b/T-002F.md |
+| T-002F shell follow-ups (drop sharp/LGPL, exact eslint pin, W-01 header brand, README env) | worker-b | `arena/01a0dc47-haleman` (alias of `w-b/T-002F-shell-followups`, D-S7) | ✅ pending-review (PR to `main`, see Blockers 2026-09-26) · Docker gates = missing evidence (B-01) | reports/worker-b/T-002F.md |
 | T-003A consent API + log + server gate | worker-a | `w-a/T-003A-consent-api` | ⏸ blocked on T-001 merge | reports/worker-a/T-003A.md |
 | T-003B W-02 screen + /chat placeholder | worker-b | `w-b/T-003B-consent-screen` | ⬜ todo (after T-002F pushed) | reports/worker-b/T-003B.md |
 | T-004 compose integration + make check + M1 acceptance (+ amendments a–d) | worker-a (B on call) | `w-a/T-004-compose-integration` | ⏸ blocked on T-001, T-002F, T-003A, T-003B merge **+ Q-01 (Docker runner)** | reports/worker-a/T-004.md |
@@ -83,6 +83,11 @@
 - [2026-09-25] SENIOR → SUPERVISORS: T-000 and T-002 were merged before the senior verdict. Both workers flagged it
   correctly. Please merge only after a verdict appears here. Also close whichever of PR #3/#4 is still open (same commit).
 
+- [2026-09-26] WORKER-B → SENIOR: T-002F observation, **not fixed (out of scope)**: unknown routes render Next's built-in
+  404 page, which injects its own `body{background:#fff}` / dark `#000` style (off-palette, English copy, no Vazirmatn).
+  Pre-existing since T-002 (no `app/not-found.tsx`). The app header on that route is correct. Suggest a small follow-up
+  (fa `not-found.tsx` on tokens) in whichever task you choose. Screenshot: `reports/worker-b/img/t002f-other-route-light.png`.
+
 ## Decisions
 
 - [2026-09-25] Stack locked: Next.js + Django/DRF + Postgres 16 + Caddy, single published
@@ -143,3 +148,14 @@
 - [2026-09-25] SENIOR: B-03 (worker-b, no Docker) merged into B-01. **No sandbox on this team has a Docker engine.**
   T-004 acceptance is impossible without a Docker-capable runner → Q-01 is now blocking T-004. → SUPERVISORS
 - [2026-09-25] SENIOR: Q-09 (contrast) opened. It blocks T-015 design, not M1. → SUPERVISORS
+- [2026-09-26] WORKER-B: T-002F done on session branch `arena/01a0dc47-haleman` (alias of `w-b/T-002F-shell-followups`,
+  D-S7), branched from `main` @ `90aa3a3` (PR #5 merged). Report `reports/worker-b/T-002F.md`, PR → `main` (supervisors
+  merge). (1) `images.unoptimized` + `outputFileTracingExcludes` → `.next/standalone` 65.0 MB → 16.9 MB, shipped
+  packages 18 → 7, all MIT/Apache-2.0, 0 LGPL, standalone serves `/` + fonts. (2) `eslint` exact `9.39.5`, lockfile
+  1-line diff, `npm ci` clean. (3) no header brand on `/`, toggle kept, other routes keep the brand. (4) README env line.
+  Optional pre-hydration label fix included. Board row → ✅ pending-review. T-003B (pre-authorised
+  once T-002F is pushed + reported) starts in a separate worker-b session; this session stops here. → SENIOR
+- [2026-09-26] WORKER-B (B-01 again): this T-002F sandbox also has **no Docker engine** (`docker: command not found`).
+  `docker compose build web`, real `make size` for `haleman-web`, `make verify-ports` and `make check` are
+  **MISSING EVIDENCE, not passing**. Substituted: exact runner payload 17.9 MB (was 66.0 MB) + standalone runtime proof.
+  Still needs the Docker-capable run (Q-01 / T-004 amendment d). → SENIOR / SUPERVISORS

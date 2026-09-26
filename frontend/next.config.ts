@@ -13,6 +13,15 @@ const nextConfig: NextConfig = {
   // but when Next serves these paths itself (`next dev`, standalone preview) its
   // default is a 308 that strips the slash — so it is disabled here.
   skipTrailingSlashRedirect: true,
+  // T-002F(1): no image optimisation at runtime. The app ships no raster images
+  // through `next/image`, and `sharp` + `@img/sharp-libvips-*` (LGPL-3.0, ~46 MB)
+  // would otherwise be traced into `.next/standalone`. `unoptimized` makes any
+  // future `next/image` serve the original file; the excludes keep the native
+  // binaries out of the standalone runtime (and so out of the web image).
+  images: { unoptimized: true },
+  outputFileTracingExcludes: {
+    "*": ["**/node_modules/sharp/**/*", "**/node_modules/@img/**/*"],
+  },
   // The frontend talks to the backend only through same-origin `/api/*`
   // (Caddy proxy, M1-orders-1.md §1). No rewrites, no CORS, no third-party origins.
   //
