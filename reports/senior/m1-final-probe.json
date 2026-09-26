@@ -1,0 +1,201 @@
+{
+  "checks": [
+    {
+      "label": "M1-1 fresh visitor gets an anonymous identity (anonymous=true, is_new=true)",
+      "value": true
+    },
+    {
+      "label": "M1-1 device cookie is HttpOnly + SameSite=Lax + Path=/",
+      "value": true
+    },
+    {
+      "label": "M1-1 no consent yet (consent.informed=false)",
+      "value": true
+    },
+    {
+      "label": "M1-2 «شروع گفت‌وگو» leads to the consent screen",
+      "value": true
+    },
+    {
+      "label": "M1-2 W-02 copy is byte-exact against the wireframe (5 strings, ZWNJ included)",
+      "value": true
+    },
+    {
+      "label": "M1-3 /chat without consent redirects to /consent",
+      "value": true
+    },
+    {
+      "label": "M1-3 the gate is the server: 403 consent_required",
+      "value": true
+    },
+    {
+      "label": "M1-4 accept -> chat placeholder with the W-03 opening line",
+      "value": true
+    },
+    {
+      "label": "M1-4 placeholder is inert (disabled input + disabled send)",
+      "value": true
+    },
+    {
+      "label": "M1-4 server now reports the consent on record",
+      "value": true
+    },
+    {
+      "label": "§C3 no screen claims to be a therapist/diagnosis (only the disclaimers use those words)",
+      "value": true
+    },
+    {
+      "label": "§C3 the not-a-diagnosis disclaimer is served on /consent and /terms",
+      "value": true
+    },
+    {
+      "label": "§C2 the 115 line is present on every route (Q-07 interim; full W-10 overlay is T-015)",
+      "value": true
+    },
+    {
+      "label": "§C5 zero third-party origins at runtime",
+      "value": true
+    },
+    {
+      "label": "§C5 no API key or LLM provider reference in the shipped client bundle",
+      "value": true
+    },
+    {
+      "label": "§D both themes render the v1.1 tokens (light #F5F2EA bg, dark #151B24 bg)",
+      "value": true
+    },
+    {
+      "label": "§D Persian digits in the 115 label",
+      "value": true
+    },
+    {
+      "label": "§D 360 px wide: no horizontal overflow",
+      "value": true
+    },
+    {
+      "label": "§D keyboard reaches the primary action with an instant --primary ring",
+      "value": true
+    },
+    {
+      "label": "§5 Django stays stateless (no session or CSRF middleware, no sessions app)",
+      "value": true
+    }
+  ],
+  "info": {
+    "first /api/me/": {
+      "anonymous": true,
+      "is_new": true,
+      "consent": {
+        "informed": false,
+        "version": "v1"
+      }
+    },
+    "hid cookie": {
+      "httpOnly": true,
+      "sameSite": "Lax",
+      "path": "/",
+      "secure": false
+    },
+    "W-02 copy rendered": {
+      "title": "قبل از شروع",
+      "cards": [
+        "اینجا با یک ابزار هوشمند حرف می‌زنی، نه درمانگر. این گفت‌وگو تشخیص و درمان نیست.",
+        "ناشناسی؛ هیچ‌چیز بدون اجازه‌ات برای کسی ارسال نمی‌شود.",
+        "در بحران، فوراً راه کمک اضطراری می‌گیری."
+      ],
+      "primary": "فهمیدم، شروع کن",
+      "link": "متن کامل قوانین و حریم خصوصی"
+    },
+    "/api/chat/ without consent": {
+      "status": 403,
+      "body": {
+        "code": "consent_required",
+        "detail": "برای شروع گفت‌وگو ابتدا باید رضایت آگاهانه را بپذیری."
+      }
+    },
+    "chat placeholder DOM": {
+      "bubble": "سلام! امروز روزت چطور گذشت؟",
+      "inputDisabled": true,
+      "sendDisabled": true
+    },
+    "/api/me/ after accepting": {
+      "anonymous": true,
+      "is_new": false,
+      "consent": {
+        "informed": true,
+        "version": "v1"
+      }
+    },
+    "served text per route": {
+      "/": "تم تیره حال‌من حالت چطوره؟ قدم اول، ناشناس و امن شروع گفت‌وگو چطور کار می‌کند؟ تماس با اورژانس ۱۱۵",
+      "/consent": "حال‌من تم تیره قبل از شروع ✓ اینجا با یک ابزار هوشمند حرف می‌زنی، نه درمانگر. این گفت‌وگو تشخیص و درمان نیست. ✓ ناشناسی؛ هیچ‌چیز بدون اجازه‌ات برای کسی ارسال نمی‌شود. ✓ در بحران، فوراً راه کمک اضطراری می‌گیری. فهمیدم، شروع کن متن کامل قوانین و حریم خصوصی تماس با اورژانس ۱۱۵",
+      "/chat": "حال‌من تم تیره قبل از شروع ✓ اینجا با یک ابزار هوشمند حرف می‌زنی، نه درمانگر. این گفت‌وگو تشخیص و درمان نیست. ✓ ناشناسی؛ هیچ‌چیز بدون اجازه‌ات برای کسی ارسال نمی‌شود. ✓ در بحران، فوراً راه کمک اضطراری می‌گیری. فهمیدم، شروع کن متن کامل قوانین و حریم خصوصی تماس با اورژانس ۱۱۵",
+      "/terms": "حال‌من تم تیره قوانین و حریم خصوصی ✓ اینجا با یک ابزار هوشمند حرف می‌زنی، نه درمانگر. این گفت‌وگو تشخیص و درمان نیست. ✓ ناشناسی؛ هیچ‌چیز بدون اجازه‌ات برای کسی ارسال نمی‌شود. ✓ در بحران، فوراً راه کمک اضطراری می‌گیری. متن کامل پس از تأیید حقوقی منتشر می‌شود. تماس با اورژانس ۱۱۵",
+      "/nope": "حال‌من تم تیره این صفحه پیدا نشد شاید نشانی را اشتباه وارد کرده‌ای. بازگشت به خانه تماس با اورژانس ۱۱۵"
+    },
+    "claim-word hits": [],
+    "routes with the 115 line": [
+      "/",
+      "/consent",
+      "/chat",
+      "/terms",
+      "/nope"
+    ],
+    "third-party requests": [],
+    "client-bundle matches for key/provider patterns": [],
+    "theme samples": {
+      "light": {
+        "theme": "light",
+        "body": "rgb(245, 242, 234)",
+        "bar": "rgb(141, 94, 76)",
+        "digits": true
+      },
+      "dark": {
+        "theme": "dark",
+        "body": "rgb(21, 27, 36)",
+        "bar": "rgb(192, 139, 109)"
+      }
+    },
+    "360px": {
+      "scrollWidth": 360,
+      "innerWidth": 360
+    },
+    "keyboard order on /consent": [
+      {
+        "tag": "BUTTON",
+        "text": "تم تیرهتم روشن",
+        "outline": "rgb(61, 90, 128)",
+        "width": "2px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "فهمیدم، شروع کن",
+        "outline": "rgb(61, 90, 128)",
+        "width": "2px"
+      },
+      {
+        "tag": "A",
+        "text": "متن کامل قوانین و حریم خصوصی",
+        "outline": "rgb(61, 90, 128)",
+        "width": "2px"
+      },
+      {
+        "tag": "A",
+        "text": "تماس با اورژانس ۱۱۵",
+        "outline": "rgb(61, 90, 128)",
+        "width": "2px"
+      }
+    ],
+    "settings middleware/session hits (code lines only)": {
+      "middleware": "0",
+      "sessions": "0"
+    }
+  },
+  "screenshots": [
+    "senior-m1final-w02-consent.png",
+    "senior-m1final-chat-bounced.png",
+    "senior-m1final-chat-placeholder.png",
+    "senior-m1final-360.png"
+  ],
+  "shell": {}
+}

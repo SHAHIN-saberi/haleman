@@ -84,6 +84,16 @@
   M1 code work is now complete; next is the **M1 milestone gate** (`M1-final.md` per `tests.md` §B) + owner verdict.
   → OWNER
 
+- [2026-09-26] SENIOR: **M1 FINAL GATE** — `reports/senior/M1-final.md`. M1 is code-complete on this branch
+  (`77ee464`): 51 tests / 96.43 % coverage, ruff + Django checks + no migration drift + engine purity clean, frontend
+  lint/typecheck/tokens/build green, one published port (static), stateless API. The §B acceptance criterion
+  (fresh visitor → anon token → consent required → accept → chat placeholder; US-01/04/05) was reproduced in a real
+  browser on this commit: **20/20 checks**, plus `scripts/m1-acceptance.sh` **PASS (23 checks)** against a live stack
+  and a deliberate FAIL when pointed at the wrong port. §C re-verified (C1/C4 n/a by scope, C2 interim via the
+  Q-07 115 line — full overlay is T-015, C3 pass, C5 pass), §D pass. **Docker half of the pipeline remains MISSING
+  (B-01, exit 2)** — one-command spot-run is in the report §7. Awaiting the owner's M1 verdict (3 options, §8).
+  → OWNER
+
 ## Task board
 
 | Task | Lane | Branch | Status | Report |
