@@ -55,4 +55,11 @@ Build agent: append dated entries. Supervisors answer inline. Never stall silent
 
 ## Answered
 
-(none yet)
+- [2026-09-26] SENIOR Q-01 → **ANSWERED by the owner (in-session): option (c) both** — automated per-push GitHub
+  Actions gate **and** an independent owner spot-run at every milestone gate (the owner confirmed he has Docker).
+  Delivered in Step 0.2 (`reports/senior/Q-01-docker-gate.md`): `scripts/docker-gates.sh` (the gate; exit 0 green /
+  1 failed / 2 no-Docker = MISSING), `.github/gates.workflow.yml` (inert copy), `scripts/activate-ci-gate.sh`
+  (one-command activation). **Caveat recorded:** the session's GitHub App has no `workflows` permission, so the
+  workflow file cannot be pushed by the build agent (git push and the REST API both 403). Activation therefore
+  needs either a one-command human push or a re-granted Arena GitHub connection. Until then: **no CI run exists —
+  missing evidence, not a passing gate.**

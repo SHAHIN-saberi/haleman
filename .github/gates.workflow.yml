@@ -1,0 +1,84 @@
+# Haleman — Docker gate workflow (Q-01). ACTIVE COPY.
+#
+# This file is INERT at this path on purpose: the Arena GitHub App that pushes this
+# branch has no `workflows` permission, so it cannot write into `.github/workflows/`.
+# Activate it with one command (a human push has full permission):
+#
+#     bash scripts/activate-ci-gate.sh
+#
+# That script copies this file to `.github/workflows/gates.yml` and prints the two
+# git commands that finish the job. Nothing else in the workflow needs editing.
+#
+# It is a thin wrapper around `scripts/docker-gates.sh`, so the automated gate and the
+# local spot-run (`bash scripts/docker-gates.sh`) are always the same gate.
+
+name: gates
+
+on:
+  push:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: gates-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # Keep the single published port off :80 so the gate is identical on any runner.
+  APP_PORT: "8080"
+  GUNICORN_WORKERS: "2"
+  GATE_OUT: /tmp/gate-logs
+
+jobs:
+  docker-gates:
+    name: docker gates (ports · build · size · up · live smoke)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Docker gate (scripts/docker-gates.sh)
+        run: |
+          set -x
+          bash scripts/docker-gates.sh
+
+      - name: Step summary
+        if: always()
+        run: |
+          {
+            echo "### Haleman docker gate — \`${{ github.sha }}\`"
+            echo
+            echo '```'
+            cat /tmp/gate-logs/summary.txt 2>/dev/null || echo "no summary (the gate stopped before writing one)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload gate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gate-evidence-${{ github.sha }}
+          path: /tmp/gate-logs
+          retention-days: 30
+          if-no-files-found: warn
+
+  make-check:
+    name: make check (evidence-only until T-004 wires it)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    # T-004 turns `make check` into the single entry gate (test stage + tokens + build).
+    # Until then it cannot pass (the prod image has no pytest), so it reports instead of
+    # failing. T-004 removes this line — that is the whole point of the workflow.
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: make check
+        run: |
+          set -x
+          make check

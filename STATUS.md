@@ -28,6 +28,15 @@
   correct 6.31:1 light / 4.93:1 dark) — one-line fix proposed into T-003B. Full text: `reports/senior/M1-review-3.md`.
   Docker gates remain MISSING (B-01/Q-01). → ALL
 
+- [2026-09-26] SENIOR: **Step 0.2 done — Q-01 answered (owner: option "both")**. Docker-capable gate delivered:
+  `scripts/docker-gates.sh` (one gate: static + runtime one-port check, build, image budgets, boot+health, live wire
+  smoke through Caddy, in-image pytest when T-004 adds the test stage, acceptance script when it lands; exit
+  0/1/2 = green/failed/**no-Docker=MISSING**) + `.github/gates.workflow.yml` (inert copy) + `scripts/activate-ci-gate.sh`.
+  Proven in six stub scenarios (green + 4 failure modes + dead port). **Blocker:** this session's GitHub App has no
+  `workflows` permission, so it cannot push `.github/workflows/*` (git + REST API both 403) — activation needs one
+  human push (`bash scripts/activate-ci-gate.sh`) or a re-granted Arena GitHub connection. No real Docker run yet:
+  still MISSING evidence. Full text: `reports/senior/Q-01-docker-gate.md`. → OWNER
+
 ## Task board
 
 | Task | Worker | Branch | Status | Report |
@@ -169,6 +178,17 @@
   here, and continues in a distinct new session. Recorded after worker-a and worker-b both reported
   `arena/01a0dc32-haleman`; worker-a's T-001 stands on it; worker-b moves to a new session. No history rewritten.
 
+- [2026-09-26] SENIOR D-S12: Q-01 answered (owner, "both"). The Docker gate is **one script** (`scripts/docker-gates.sh`)
+  called by both the CI workflow and the owner's spot-run, so they cannot drift. Rules encoded: exit 2 when no Docker
+  engine is present (MISSING, never a pass); runtime published ports parsed from `docker compose ps --format json`
+  (strict, proxy-owned); JSON bodies parsed, never string-matched; resolved `docker compose config` never collected
+  and a redaction pass strips every `.env` secret-like value from artefacts; local evidence written to the
+  git-ignored `reports/docker-gates/<sha>/`. → ALL
+- [2026-09-26] SENIOR D-S13: the Arena GitHub App used by build sessions lacks the `workflows` permission, so this
+  session **cannot create or update anything under `.github/workflows/`** (verified twice: `git push` rejected,
+  `gh api …/contents/…` → 403). Workaround in use: canonical workflow kept inert at `.github/gates.workflow.yml` +
+  `scripts/activate-ci-gate.sh` for a one-command human push. Nothing about this changes product scope. → OWNER / ALL
+
 ## Blockers
 
 - (none)
@@ -257,3 +277,12 @@
   with `transition-[color,background-color,border-color]` in `components/ui/Button.tsx` BASE, `components/ThemeToggle.tsx`
   and the W-01 ghost link. Proposed as a small ordered addition to T-003B (Button.tsx is outside that task's original
   path list → owner nod requested at the T-003B plan gate). → OWNER
+- [2026-09-26] SENIOR: **B-01 status change** — a Docker-capable runner now exists in two forms (GitHub Actions for
+  every push; the owner's own machine for milestone spot-runs), so B-01 stops being a hard blocker for T-004 acceptance:
+  the acceptance must now be *run*, not *argued*. Still no measured image sizes / `make up` transcript in this repo —
+  that evidence arrives with the first spot-run or the first activated workflow run, and stays **MISSING** until then.
+  → ALL
+- [2026-09-26] SENIOR (new, small): **B-05 — CI activation pending owner action.** The workflow cannot be pushed by
+  this session (no `workflows` permission, D-S13). Owner options: (a) `bash scripts/activate-ci-gate.sh` then
+  `git add .github/workflows/gates.yml && git commit -m "ci: activate gates" && git push`; (b) reconnect GitHub in
+  Arena with the `workflows` permission and the senior activates it. → OWNER

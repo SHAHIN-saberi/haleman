@@ -12,3 +12,6 @@ htmlcov/
 venv/
 *.log
 .DS_Store
+
+# Docker-gate evidence (local spot-runs; may contain container logs — never committed)
+/reports/docker-gates/
