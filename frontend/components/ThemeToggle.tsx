@@ -74,7 +74,13 @@ export default function ThemeToggle() {
       aria-pressed={theme === "dark"}
       className="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-5 text-[13.5px] font-bold text-on-primary transition-colors hover:bg-primary-h"
     >
-      {theme === "dark" ? "تم روشن" : "تم تیره"}
+      {/*
+       * Both labels are rendered and CSS picks one from `html[data-theme]`,
+       * which the inline bootstrap sets before first paint. So the label is
+       * right even before hydration (no «تم تیره» flash for stored-dark users).
+       */}
+      <span className="in-data-[theme=dark]:hidden">تم تیره</span>
+      <span className="hidden in-data-[theme=dark]:inline">تم روشن</span>
     </button>
   );
 }

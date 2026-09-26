@@ -14,6 +14,12 @@ contract: `package.json`, `next.config` with `output: 'standalone'`, `npm run bu
   `/calm` (W-05) `/login` (W-06) `/doctors` (W-07) `/summary` (W-08) `/me` (W-09);
   crisis overlay component mounted on every route.
 
+## Environment
+
+- `ALLOWED_DEV_ORIGINS` (**dev-only**, optional): comma-separated hostnames `next dev` accepts for
+  cross-origin `/_next/*` requests, e.g. a proxied preview host. Read in `next.config.ts`; ignored by
+  `next build` / the standalone server, never set in `.env.example`, compose or production.
+
 ## Rules
 
 - No business logic in components — every screen works through `/api/*`.

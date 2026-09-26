@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import AppHeader from "@/components/AppHeader";
 import CrisisLayer from "@/components/CrisisLayer";
-import ThemeToggle from "@/components/ThemeToggle";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,10 +33,7 @@ export default function RootLayout({
       <body className="bg-bg text-text">
         {/* Phone frame: max-width 480px centered, 360px still fine (design-system). */}
         <div className="mx-auto flex min-h-dvh w-full max-w-[480px] flex-col">
-          <header className="flex items-center justify-between gap-3 border-b border-border bg-card px-4 py-3">
-            <span className="text-[17px] font-bold">حال‌من</span>
-            <ThemeToggle />
-          </header>
+          <AppHeader />
           <main className="flex flex-1 flex-col px-4 pb-6 pt-4">{children}</main>
         </div>
         {/* Placeholder mounted on every route so T-015 (W-10) slots in later. */}
