@@ -1,0 +1,8 @@
+# Haleman API — development/test dependencies (prod + tooling).
+# Exact pins; no new dependency without senior approval (pre-approved: pytest,
+# pytest-django, pytest-cov, ruff — M1-orders-1.md §0).
+-r requirements.txt
+pytest==8.4.2
+pytest-cov==7.0.0
+pytest-django==4.11.1
+ruff==0.14.5
