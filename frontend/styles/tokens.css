@@ -1,5 +1,6 @@
 /*
- * Haleman design tokens — 1:1 mirror of `design/brand-kit/palette.md` (v1.0).
+ * Haleman design tokens — 1:1 mirror of `design/brand-kit/palette.md` (v1.1,
+ * contrast fixes for tests.md §D: soft/clay/sage in light, card in dark).
  * Exactly the 15 tokens from design/design-system.md, per theme. No other file
  * may hard-code a color (frontend/README.md, M1-orders-1.md T-002 §3).
  * Verified by `scripts/check-tokens.mjs` (hex set == palette.md hex set).
@@ -10,15 +11,15 @@
   --card: #FDFCF8;
   --surface2: #E7ECF1;
   --text: #2B3542;
-  --soft: #6E7989;
+  --soft: #626B7A;
   --border: #E0E4E9;
   --primary: #3D5A80;
   --primary-h: #334D6E;
   --on-primary: #F5F2EA;
   --primary-bg: #E3E9F1;
-  --sage: #7A918D;
+  --sage: #5D6E6B;
   --sage-bg: #E6EDEB;
-  --clay: #A9715B;
+  --clay: #8D5E4C;
   --clay-bg: #F3E7DE;
   --shadow: 0 10px 30px rgba(43, 53, 66, .08);
   color-scheme: light;
@@ -26,7 +27,7 @@
 
 :root[data-theme="dark"] {
   --bg: #151B24;
-  --card: #1D2530;
+  --card: #1B232E;
   --surface2: #28323F;
   --text: #E9E6DC;
   --soft: #9AA3B2;

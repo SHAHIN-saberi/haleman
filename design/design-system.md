@@ -1,7 +1,14 @@
 # Design System — Haleman Web (v1.0)
 
-Source of truth for color: `design/brand-kit/palette.md` (+ `theme-preview.html`).
+Source of truth for color: `design/brand-kit/palette.md` (v1.1) (+ `theme-preview.html`).
 This file maps tokens to code + components.
+
+> v1.1 (2026-09-26): four tokens moved slightly darker so every text/surface pair meets
+> `tech/tests.md` §D (>= 4.5:1). Hue and saturation unchanged — no colour became louder.
+> light `--soft #626B7A`, `--clay #8D5E4C`, `--sage #5D6E6B`; dark `--card #1B232E`.
+> `--primary-bg` (dark) deliberately kept `#223041`; instead the dark **Soft** button label
+> uses `--text` (10.4:1) while the light one keeps `--primary` (5.78:1). Evidence:
+> `reports/senior/step-0.3-decisions.md`.
 
 ## Tokens → CSS
 
@@ -20,7 +27,10 @@ Tailwind: extend theme to reference the vars (e.g. `bg-card`, `text-soft`,
 ## Components (anatomy + states)
 
 - **Button**: pill radius 999, Primary filled / Ghost (1.5px primary border) / Soft
-  (primary-bg fill); hover → primary-h; disabled 40% opacity. Min height 44px.
+  (`--primary-bg` fill); hover → `primary-h`; disabled 40% opacity. Min height 44px.
+  **Soft label colour:** light `--primary` (5.78:1 on `--primary-bg`), dark `--text`
+  (10.4:1) via `in-data-[theme=dark]:text-text` — see the v1.1 note above. Hover goes to
+  `primary-h` + `on-primary` in both themes (7.73:1 light, 5.60:1 dark).
 - **Chips** (quick replies / filters): pill, primary border+text; `.on` = primary fill.
 - **Bubble**: bot = card bg + border, radius 16 (4px at tail); user = primary fill +
   on-primary text. Max-width 88%.

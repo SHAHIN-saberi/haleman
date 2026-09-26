@@ -37,6 +37,15 @@
   human push (`bash scripts/activate-ci-gate.sh`) or a re-granted Arena GitHub connection. No real Docker run yet:
   still MISSING evidence. Full text: `reports/senior/Q-01-docker-gate.md`. → OWNER
 
+- [2026-09-26] SENIOR: **Step 0.3 done — Q-02..Q-11 answered and applied (docs + design debt, no feature code).**
+  Highlights: palette **v1.1** (light `--soft #626B7A`, `--clay #8D5E4C`, `--sage #5D6E6B`; dark `--card #1B232E`) so
+  every text pair passes §D — the 115 button goes 3.61 → **4.89**; dark `--primary-bg` kept soft and the dark Soft
+  button label switched to `--text` (measured **10.73**); TD-05/06/09 realigned with the Django architecture, licence
+  rule (Q-04) and the duplicated heading fixed; `src/` deleted (Q-06); Q-07/Q-11 + F-2 ordered into T-003B; Q-05
+  (`node:22-alpine`) recorded for T-004; Q-08 = keep the `/terms` stub, **owner owes the final legal text before
+  launch**. Gates: check:tokens 17 files / 0 stray hexes, lint, typecheck, build green; browser-measured contrast
+  table in `reports/senior/step-0.3-decisions.md`. → ALL
+
 ## Task board
 
 | Task | Worker | Branch | Status | Report |
@@ -46,8 +55,8 @@
 | T-002 Next.js shell + RTL + theme + fonts + W-01 | worker-b | `w-b/T-002-next-shell` | ✅ merged (PR #3/#4) · senior: approve post-merge + T-002F | reports/worker-b/T-002.md |
 | T-002F shell follow-ups (drop sharp/LGPL, exact eslint pin, W-01 header brand, README env) | worker-b | `arena/01a0dc47-haleman` (alias of `w-b/T-002F-shell-followups`, D-S7) | ✅ merged (PR #8, supervisor) · senior: **approve** (post-merge, `reports/senior/M1-review-3.md`) · Docker gates = missing evidence (B-01) | reports/worker-b/T-002F.md |
 | T-003A consent API + log + server gate | worker-a | `w-a/T-003A-consent-api` | ⬜ todo — **start now** (T-001 merged; carry N-1 required + N-2 optional from `M1-review-2`) | reports/worker-a/T-003A.md |
-| T-003B W-02 screen + /chat placeholder | worker-b | `w-b/T-003B-consent-screen` | ⬜ todo (after T-002F pushed) | reports/worker-b/T-003B.md |
-| T-004 compose integration + make check + M1 acceptance (+ amendments a–d) | worker-a (B on call) | `w-a/T-004-compose-integration` | ⏸ blocked on T-001, T-002F, T-003A, T-003B merge **+ Q-01 (Docker runner)** | reports/worker-a/T-004.md |
+| T-003B W-02 screen + /chat placeholder (+ Q-07 interim 115 link, + Q-11 `app/not-found.tsx`, + F-2 focus-ring transition fix) | senior | this branch | ⬜ todo (next step) | reports/senior/T-003B.md |
+| T-004 compose integration + make check + M1 acceptance (+ amendments a–f, incl. `node:22-alpine` per Q-05) | senior | this branch | ⏳ after T-003A/T-003B; Docker evidence now runnable (Q-01) | reports/senior/T-004.md |
 
 (Further milestones: senior extends the board from `tech/tasks.md` when assigning.)
 
@@ -189,6 +198,14 @@
   `gh api …/contents/…` → 403). Workaround in use: canonical workflow kept inert at `.github/gates.workflow.yml` +
   `scripts/activate-ci-gate.sh` for a one-command human push. Nothing about this changes product scope. → OWNER / ALL
 
+- [2026-09-26] SENIOR D-S14: **palette v1.1** is the design source of truth (owner-approved). Four tokens darkened
+  (light soft/clay/sage, dark card); dark `--primary-bg` unchanged with the dark Soft-button label on `--text`.
+  Rule: contrast failures are fixed by *softening the same colour*, never by making it louder, and never by
+  restricting a control to large text. `--border` stays a soft hairline (1.14:1) by decision — affordance is carried
+  by the 2 px `--primary` ring and 44 px controls. → ALL
+- [2026-09-26] SENIOR D-S15: `src/` is deleted; `backend/` + `frontend/` are the only app roots (Q-06, closes D-S3).
+  → ALL
+
 ## Blockers
 
 - (none)
@@ -286,3 +303,9 @@
   this session (no `workflows` permission, D-S13). Owner options: (a) `bash scripts/activate-ci-gate.sh` then
   `git add .github/workflows/gates.yml && git commit -m "ci: activate gates" && git push`; (b) reconnect GitHub in
   Arena with the `workflows` permission and the senior activates it. → OWNER
+- [2026-09-26] SENIOR (safety, recorded): **the 115 call button was the least legible control in the product**
+  (cream on clay, 3.61:1). Palette v1.1 fixes it to 4.89:1 before W-10 is built. No M1/M2 screen ships the button
+  until T-015/T-003B mount it, so nothing shipped regressed — the risk was *ahead* of us and is now closed. → ALL
+- [2026-09-26] SENIOR: **Q-11 + Q-07 answers are now binding orders for T-003B** (`app/not-found.tsx` copy,
+  always-visible `tel:115` link from the root layout). Both are user-facing strings approved by the owner, so they no
+  longer need a separate gate. → ALL
