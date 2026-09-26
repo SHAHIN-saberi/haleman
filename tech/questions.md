@@ -33,6 +33,14 @@ Build agent: append dated entries. Supervisors answer inline. Never stall silent
 - [2026-09-25] SENIOR Q-08: link targets are missing. W-01 «چطور کار می‌کند؟» and W-02 «متن کامل قوانین و حریم خصوصی».
   Where does the terms/privacy text come from (the legal research docx is v1.0 and "needs a lawyer")? Interim: W-01 link is
   non-navigating; W-02 links to a `/terms` stub marked «متن نهایی به‌زودی». Must be resolved before any public launch.
+- [2026-09-25] SENIOR Q-09 (a11y + safety): with the palette exactly as given, these pairs fail `tests.md` §D (≥4.5:1
+  body text): light `--soft` on `--bg` 3.94:1 (W-01 subtitle, caption links), light `--soft` on `--card` 4.30:1, dark
+  `--primary` on `--primary-bg` 3.82:1 (Soft buttons), and **light `--on-primary` on `--clay` 3.61:1, the W-10 «تماس با
+  اورژانس ۱۱۵» button**. Options: (a) nudge `--soft` (light) and `--clay` (light) darker, and `--primary-bg` (dark), keeping
+  hue; (b) restrict those pairs to large text (≥18.66 px bold / 24 px). Senior recommendation: (a) for `--clay` at least,
+  because the crisis button must be legible to someone in distress. Needs a decision before T-015 (M3).
+- [2026-09-25] SENIOR Q-10 (process): T-000 + T-002 were merged before the senior review (both workers flagged it). Post-merge
+  verdicts are recorded (D-S8). Please confirm the intended order: senior verdict in STATUS.md → supervisor merge.
 
 ## Milestone reports
 
