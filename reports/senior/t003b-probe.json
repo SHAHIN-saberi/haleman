@@ -1,0 +1,354 @@
+{
+  "steps": [
+    "senior-t003b-flow-1-bounced-to-consent",
+    "senior-t003b-w02-light-390",
+    "senior-t003b-w02-light-360",
+    "senior-t003b-w02-dark-390",
+    "senior-t003b-w02-light-390-shot",
+    "senior-t003b-focus-ring-fixed",
+    "senior-t003b-chat-light-390",
+    "senior-t003b-flow-3-chat-placeholder",
+    "senior-t003b-terms-light-390",
+    "senior-t003b-404-light-390",
+    "senior-t003b-w01-with-115-bar",
+    "senior-t003b-chat-dark-390"
+  ],
+  "checks": [
+    {
+      "label": "flow-1 /chat without consent landed on",
+      "value": "/consent"
+    },
+    {
+      "label": "flow-1 api calls",
+      "value": [
+        "/api/chat/",
+        "/api/me/"
+      ]
+    },
+    {
+      "label": "w02 wireframe strings",
+      "value": {
+        "pbar": "قبل از شروع",
+        "checks": [
+          "اینجا با یک ابزار هوشمند حرف می‌زنی، نه درمانگر. این گفت‌وگو تشخیص و درمان نیست.",
+          "ناشناسی؛ هیچ‌چیز بدون اجازه‌ات برای کسی ارسال نمی‌شود.",
+          "در بحران، فوراً راه کمک اضطراری می‌گیری."
+        ],
+        "primary": "فهمیدم، شروع کن",
+        "link": "متن کامل قوانین و حریم خصوصی"
+      }
+    },
+    {
+      "label": "w02 rendered",
+      "value": {
+        "title": "قبل از شروع",
+        "cards": [
+          {
+            "text": "اینجا با یک ابزار هوشمند حرف می‌زنی، نه درمانگر. این گفت‌وگو تشخیص و درمان نیست.",
+            "innerText": "✓ اینجا با یک ابزار هوشمند حرف می‌زنی، نه درمانگر. این گفت‌وگو تشخیص و درمان نیست.",
+            "mark": "✓",
+            "markColor": "rgb(93, 110, 107)",
+            "bg": "rgb(253, 252, 248)"
+          },
+          {
+            "text": "ناشناسی؛ هیچ‌چیز بدون اجازه‌ات برای کسی ارسال نمی‌شود.",
+            "innerText": "✓ ناشناسی؛ هیچ‌چیز بدون اجازه‌ات برای کسی ارسال نمی‌شود.",
+            "mark": "✓",
+            "markColor": "rgb(93, 110, 107)",
+            "bg": "rgb(253, 252, 248)"
+          },
+          {
+            "text": "در بحران، فوراً راه کمک اضطراری می‌گیری.",
+            "innerText": "✓ در بحران، فوراً راه کمک اضطراری می‌گیری.",
+            "mark": "✓",
+            "markColor": "rgb(93, 110, 107)",
+            "bg": "rgb(253, 252, 248)"
+          }
+        ],
+        "primary": "فهمیدم، شروع کن",
+        "link": "متن کامل قوانین و حریم خصوصی"
+      }
+    },
+    {
+      "label": "w02 title equal",
+      "value": true
+    },
+    {
+      "label": "w02 primary equal",
+      "value": true
+    },
+    {
+      "label": "w02 link equal",
+      "value": true
+    },
+    {
+      "label": "w02 check-1 byte-exact",
+      "value": true
+    },
+    {
+      "label": "w02 check-2 byte-exact",
+      "value": true
+    },
+    {
+      "label": "w02 check-3 byte-exact",
+      "value": true
+    },
+    {
+      "label": "w02 mark glyphs",
+      "value": [
+        "✓",
+        "✓",
+        "✓"
+      ]
+    },
+    {
+      "label": "w02 mark color (sage token)",
+      "value": "rgb(93, 110, 107)"
+    },
+    {
+      "label": "w02 card bg (card token)",
+      "value": "rgb(253, 252, 248)"
+    },
+    {
+      "label": "w02 at 360px",
+      "value": {
+        "docScrollWidth": 360,
+        "innerWidth": 360,
+        "widest": 360
+      }
+    },
+    {
+      "label": "no horizontal overflow at 360px",
+      "value": true
+    },
+    {
+      "label": "theme dark",
+      "value": {
+        "theme": "dark",
+        "bodyBg": "rgb(21, 27, 36)",
+        "bodyColor": "rgb(233, 230, 220)",
+        "barBg": "rgb(192, 139, 109)",
+        "barColor": "rgb(21, 32, 48)",
+        "barLabel": "تماس با اورژانس ۱۱۵"
+      }
+    },
+    {
+      "label": "theme light",
+      "value": {
+        "theme": "light",
+        "bodyBg": "rgb(245, 242, 234)",
+        "bodyColor": "rgb(43, 53, 66)",
+        "barBg": "rgb(141, 94, 76)",
+        "barColor": "rgb(245, 242, 234)",
+        "barLabel": "تماس با اورژانس ۱۱۵"
+      }
+    },
+    {
+      "label": "F-2 fixed button",
+      "value": {
+        "before": {
+          "t": 693,
+          "outlineColor": "rgb(245, 242, 234)",
+          "outlineWidth": "3px",
+          "transitionProperty": "background-color, color"
+        },
+        "at0": {
+          "t": 694,
+          "outlineColor": "rgb(61, 90, 128)",
+          "outlineWidth": "2px",
+          "transitionProperty": "background-color, color"
+        },
+        "at30": {
+          "t": 724,
+          "outlineColor": "rgb(61, 90, 128)",
+          "outlineWidth": "2px",
+          "transitionProperty": "background-color, color"
+        },
+        "at180": {
+          "t": 874,
+          "outlineColor": "rgb(61, 90, 128)",
+          "outlineWidth": "2px",
+          "transitionProperty": "background-color, color"
+        }
+      }
+    },
+    {
+      "label": "F-2 transition-property excludes outline-color",
+      "value": true
+    },
+    {
+      "label": "F-2 ring colour immediate (at0 == settled)",
+      "value": true
+    },
+    {
+      "label": "F-2 reproduced old rule on the same button",
+      "value": {
+        "at0": {
+          "t": 878,
+          "outlineColor": "rgb(61, 90, 128)"
+        },
+        "at40": {
+          "t": 918,
+          "outlineColor": "rgb(61, 90, 128)"
+        },
+        "at120": {
+          "t": 998,
+          "outlineColor": "rgb(61, 90, 128)"
+        },
+        "at320": {
+          "t": 1199,
+          "outlineColor": "rgb(61, 90, 128)"
+        }
+      }
+    },
+    {
+      "label": "keyboard tab order on /consent",
+      "value": [
+        {
+          "tag": "BUTTON",
+          "text": "تم تیرهتم روشن",
+          "label": "تغییر تم روشن و تیره",
+          "outline": "rgb(61, 90, 128)"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "فهمیدم، شروع کن",
+          "label": null,
+          "outline": "rgb(61, 90, 128)"
+        },
+        {
+          "tag": "A",
+          "text": "متن کامل قوانین و حریم خصوصی",
+          "label": null,
+          "outline": "rgb(61, 90, 128)"
+        },
+        {
+          "tag": "A",
+          "text": "تماس با اورژانس ۱۱۵",
+          "label": null,
+          "outline": "rgb(61, 90, 128)"
+        },
+        {
+          "tag": "BODY",
+          "text": "حال‌منتم تیرهتم روشنقبل از شروع✓اینجا با",
+          "label": null,
+          "outline": "rgb(43, 53, 66)"
+        }
+      ]
+    },
+    {
+      "label": "primary action keyboard reachable",
+      "value": true
+    },
+    {
+      "label": "every keyboard-reachable control shows the primary ring",
+      "value": true
+    },
+    {
+      "label": "flow-2 after accept, pathname",
+      "value": "/chat"
+    },
+    {
+      "label": "flow-2 api calls",
+      "value": [
+        "/api/me/",
+        "/api/consent/",
+        "/api/chat/"
+      ]
+    },
+    {
+      "label": "flow-2 /chat dom",
+      "value": {
+        "bubble": "سلام! امروز روزت چطور گذشت؟",
+        "inputDisabled": true,
+        "inputPlaceholder": "بنویس...",
+        "sendDisabled": true,
+        "brand": "حال‌منتم تیرهتم روشن"
+      }
+    },
+    {
+      "label": "chat geometry",
+      "value": {
+        "inputBottom": 780,
+        "barTop": 788,
+        "viewport": 844
+      }
+    },
+    {
+      "label": "115 bar does not overlap the last control",
+      "value": true
+    },
+    {
+      "label": "flow-4 revisit /consent →",
+      "value": "/chat"
+    },
+    {
+      "label": "flow-4 device cookie after accept",
+      "value": {
+        "present": true,
+        "httpOnly": true,
+        "sameSite": "Lax",
+        "domain": "127.0.0.1"
+      }
+    },
+    {
+      "label": "routes",
+      "value": [
+        {
+          "path": "/terms",
+          "barTop": 788,
+          "lastControlBottom": null,
+          "title": "قوانین و حریم خصوصی",
+          "text": "حال‌من تم تیره قوانین و حریم خصوصی ✓ اینجا با یک ابزار هوشمند حرف می‌زنی، نه درمانگر. این گفت‌وگو تشخیص و درمان نیست. ✓ ناشناسی؛ هیچ‌چیز بدون اجازه‌ات برای کسی ",
+          "barLabel": "تماس با اورژانس ۱۱۵",
+          "barHref": "tel:115",
+          "lang": "fa",
+          "dir": "rtl"
+        },
+        {
+          "path": "/nope",
+          "barTop": 788,
+          "lastControlBottom": 504,
+          "title": "حال‌من",
+          "text": "حال‌من تم تیره این صفحه پیدا نشد شاید نشانی را اشتباه وارد کرده‌ای. بازگشت به خانه تماس با اورژانس ۱۱۵",
+          "barLabel": "تماس با اورژانس ۱۱۵",
+          "barHref": "tel:115",
+          "lang": "fa",
+          "dir": "rtl"
+        },
+        {
+          "path": "/",
+          "barTop": 788,
+          "lastControlBottom": 547,
+          "title": "حال‌من",
+          "text": "تم تیره حال‌من حالت چطوره؟ قدم اول، ناشناس و امن شروع گفت‌وگو چطور کار می‌کند؟ تماس با اورژانس ۱۱۵",
+          "barLabel": "تماس با اورژانس ۱۱۵",
+          "barHref": "tel:115",
+          "lang": "fa",
+          "dir": "rtl"
+        }
+      ]
+    },
+    {
+      "label": "115 bar on every route",
+      "value": true
+    },
+    {
+      "label": "fa / rtl everywhere",
+      "value": true
+    },
+    {
+      "label": "115 bar never covers the last control on any route",
+      "value": true
+    },
+    {
+      "label": "third-party requests",
+      "value": []
+    },
+    {
+      "label": "zero third-party origins",
+      "value": true
+    }
+  ],
+  "mismatches": []
+}

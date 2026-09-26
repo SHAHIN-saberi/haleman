@@ -72,7 +72,7 @@ export default function ThemeToggle() {
       onClick={toggle}
       aria-label="تغییر تم روشن و تیره"
       aria-pressed={theme === "dark"}
-      className="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-5 text-[13.5px] font-bold text-on-primary transition-colors hover:bg-primary-h"
+      className="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-5 text-[13.5px] font-bold text-on-primary transition-[background-color,color] hover:bg-primary-h"
     >
       {/*
        * Both labels are rendered and CSS picks one from `html[data-theme]`,

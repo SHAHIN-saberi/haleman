@@ -62,6 +62,15 @@
   engine purity green. Report: `reports/senior/T-003A.md`. Next: T-003B (W-02 + `/chat` + Q-07 115 link + Q-11
   `not-found.tsx` + F-2 focus fix). → OWNER
 
+- [2026-09-26] SENIOR: **T-003B done-on-branch** — `/consent` (W-02, copy byte-exact incl. ZWNJ), `/chat` placeholder
+  gated only by the server (403 → back to `/consent`; revisit forwards to `/chat`), `/terms` stub, Persian 404 (Q-11),
+  the always-visible «تماس با اورژانس ۱۱۵» `tel:` line (Q-07, sticky in flow so it never covers a control), and the
+  **F-2** fix: the ring's `outline-color` is no longer animated (measured: fixed ring `rgb(61,90,128)` at t=0; the old
+  rule faded it over ≈140 ms). Real wire evidence: production standalone build + real Django/Postgres behind a
+  one-port dev proxy; 13/13 browser checks, 0 third-party origins; screenshots + probe JSON in `reports/senior/`.
+  Deviations D-1…D-5 (incl. the plan-gate `/terms` copy superseding the older stub wording) are listed in the report.
+  Next: T-004 (compose integration + `make check` + M1 acceptance, amendments a–f). → OWNER
+
 ## Task board
 
 | Task | Lane | Branch | Status | Report |
@@ -71,7 +80,7 @@
 | T-002 Next.js shell + RTL + theme + fonts + W-01 | worker-b | `w-b/T-002-next-shell` | ✅ merged (PR #3/#4) · senior: approve post-merge + T-002F | reports/worker-b/T-002.md |
 | T-002F shell follow-ups (drop sharp/LGPL, exact eslint pin, W-01 header brand, README env) | worker-b | `arena/01a0dc47-haleman` (alias of `w-b/T-002F-shell-followups`, D-S7) | ✅ merged (PR #8, supervisor) · senior: **approve** (post-merge, `reports/senior/M1-review-3.md`) · Docker gates = missing evidence (B-01) | reports/worker-b/T-002F.md |
 | T-003A consent API + log + server gate (+ N-1 envelope, + N-2 tightened) | senior | this branch | ✅ done-on-branch (awaiting owner) — 47 tests, 96.46 % cov, wire smoke pasted in the report | reports/senior/T-003A.md |
-| T-003B W-02 screen + /chat placeholder (+ Q-07 interim 115 link, + Q-11 `app/not-found.tsx`, + F-2 focus-ring transition fix) | senior | this branch | ⬜ todo (next step) | reports/senior/T-003B.md |
+| T-003B W-02 screen + /chat placeholder (+ Q-07 interim 115 link, + Q-11 `app/not-found.tsx`, + F-2 focus-ring transition fix) | senior | this branch | ✅ done-on-branch (awaiting owner) — copy byte-exact vs wireframe, 13/13 browser checks, F-2 root cause measured | reports/senior/T-003B.md |
 | T-004 compose integration + make check + M1 acceptance (+ amendments a–f, incl. `node:22-alpine` per Q-05) | senior | this branch | ⏳ after T-003A/T-003B; Docker evidence now runnable (Q-01) | reports/senior/T-004.md |
 
 (Further milestones: senior extends the board from `tech/tasks.md` when assigning.)

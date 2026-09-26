@@ -1,0 +1,60 @@
+{
+  "fixed": [
+    {
+      "label": "focus",
+      "t": 967,
+      "outline": "rgb(61, 90, 128)",
+      "props": "background-color, color"
+    },
+    {
+      "label": "settled",
+      "t": 1192,
+      "outline": "rgb(61, 90, 128)",
+      "props": "background-color, color"
+    },
+    {
+      "label": "blurred",
+      "t": 1343,
+      "outline": "rgb(245, 242, 234)",
+      "props": "background-color, color"
+    }
+  ],
+  "legacy": [
+    {
+      "label": "before focus",
+      "t": 1744,
+      "outline": "rgb(245, 242, 234)",
+      "props": "color, background-color, border-color, outline-color, text-decoration-color, fill, stroke"
+    },
+    {
+      "label": "focus+0ms",
+      "t": 1745,
+      "outline": "rgb(245, 242, 234)",
+      "props": "color, background-color, border-color, outline-color, text-decoration-color, fill, stroke"
+    },
+    {
+      "label": "focus+30ms",
+      "t": 1776,
+      "outline": "rgb(213, 216, 216)",
+      "props": "color, background-color, border-color, outline-color, text-decoration-color, fill, stroke"
+    },
+    {
+      "label": "focus+80ms",
+      "t": 1826,
+      "outline": "rgb(91, 115, 145)",
+      "props": "color, background-color, border-color, outline-color, text-decoration-color, fill, stroke"
+    },
+    {
+      "label": "focus+140ms",
+      "t": 1886,
+      "outline": "rgb(62, 91, 129)",
+      "props": "color, background-color, border-color, outline-color, text-decoration-color, fill, stroke"
+    },
+    {
+      "label": "focus+440ms",
+      "t": 2187,
+      "outline": "rgb(61, 90, 128)",
+      "props": "color, background-color, border-color, outline-color, text-decoration-color, fill, stroke"
+    }
+  ]
+}

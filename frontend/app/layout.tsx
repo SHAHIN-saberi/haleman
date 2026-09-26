@@ -34,10 +34,11 @@ export default function RootLayout({
         {/* Phone frame: max-width 480px centered, 360px still fine (design-system). */}
         <div className="mx-auto flex min-h-dvh w-full max-w-[480px] flex-col">
           <AppHeader />
-          <main className="flex flex-1 flex-col px-4 pb-6 pt-4">{children}</main>
+          <main className="flex flex-1 flex-col px-4 pt-4">{children}</main>
+          {/* W-10 slot. Inside the phone column so the sticky Q-07 referral bar stays
+              in the flow: present on every route, never over a page's last control. */}
+          <CrisisLayer />
         </div>
-        {/* Placeholder mounted on every route so T-015 (W-10) slots in later. */}
-        <CrisisLayer />
       </body>
     </html>
   );

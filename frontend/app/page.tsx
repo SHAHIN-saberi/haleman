@@ -32,7 +32,7 @@ export default function HomePage() {
          */}
         <button
           type="button"
-          className="min-h-11 rounded-full bg-transparent px-4 text-[12px] text-soft transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="min-h-11 rounded-full bg-transparent px-4 text-[12px] text-soft transition-[color] hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         >
           چطور کار می‌کند؟
         </button>

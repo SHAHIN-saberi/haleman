@@ -77,6 +77,31 @@ export function getMe(): Promise<Me> {
   return apiFetch<Me>("/me/");
 }
 
+/** Consent vocabulary — mirrors `CURRENT_CONSENT` in the backend (T-003A). */
+export const CONSENT_KIND = "informed" as const;
+export const CONSENT_VERSION = "v1" as const;
+
+export type ConsentAccepted = {
+  kind: string;
+  version: string;
+  accepted_at: string;
+};
+
+/** `POST /api/consent/` — one new append-only row per call; `400 invalid_consent` otherwise. */
+export function postConsent(): Promise<ConsentAccepted> {
+  return apiFetch<ConsentAccepted>("/consent/", {
+    method: "POST",
+    body: JSON.stringify({ kind: CONSENT_KIND, version: CONSENT_VERSION }),
+  });
+}
+
+/** `GET /api/chat/` — the server's consent gate; 403 `consent_required` means "ask first". */
+export type ChatPlaceholder = { placeholder: boolean };
+
+export function getChat(): Promise<ChatPlaceholder> {
+  return apiFetch<ChatPlaceholder>("/chat/");
+}
+
 let meRequest: Promise<Me> | null = null;
 
 /**
